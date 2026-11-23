@@ -1,0 +1,19 @@
+# Base de datos PostgreSQL 15 para desarrollo local.
+# Levantar:  docker compose up -d
+# Detener:   docker compose stop
+services:
+  db:
+    image: postgres:15
+    container_name: jobmatch-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: jobmatch
+      POSTGRES_USER: jobmatch
+      POSTGRES_PASSWORD: jobmatch_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - jobmatch-pgdata:/var/lib/postgresql/data
+
+volumes:
+  jobmatch-pgdata:
