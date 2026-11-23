@@ -11,8 +11,14 @@ export default {
 
     theme: {
         extend: {
+            // Tipografías del diseño de JobMatch
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                display: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                // Azul marino del encabezado y las tarjetas destacadas
+                marino: '#0F2A6B',
             },
         },
     },

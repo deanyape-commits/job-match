@@ -39,7 +39,7 @@ class RolesYPermisosTest extends TestCase
 
     public function test_registro_como_reclutador_crea_empresa_pendiente(): void
     {
-        $ubicacion = Ubicacion::create(['departamento' => 'Lima', 'provincia' => 'Lima']);
+        $ubicacion = Ubicacion::firstOrCreate(['departamento' => 'Lima', 'provincia' => 'Lima']);
 
         $this->post('/register', [
             'tipo_cuenta' => 'reclutador',
@@ -121,7 +121,7 @@ class RolesYPermisosTest extends TestCase
     public function test_reclutador_ve_su_panel_pero_no_el_de_administracion(): void
     {
         $empresa = Empresa::create([
-            'ubicacion_id' => Ubicacion::create(['departamento' => 'Lima', 'provincia' => 'Lima'])->id,
+            'ubicacion_id' => Ubicacion::firstOrCreate(['departamento' => 'Lima', 'provincia' => 'Lima'])->id,
             'razon_social' => 'Andina Software S.A.C.',
             'ruc' => '20600000001',
         ]);
@@ -138,14 +138,14 @@ class RolesYPermisosTest extends TestCase
         $admin = $this->usuarioConRol(Rol::ADMINISTRADOR);
 
         $this->actingAs($admin)->get(route('admin.inicio'))->assertOk();
-        $this->actingAs($admin)->get(route('supervisor.inicio'))->assertOk();
+        $this->actingAs($admin)->get(route('supervisor.empresas.index'))->assertOk();
     }
 
     public function test_supervisor_no_puede_entrar_al_panel_de_administrador(): void
     {
         $supervisor = $this->usuarioConRol(Rol::SUPERVISOR);
 
-        $this->actingAs($supervisor)->get(route('supervisor.inicio'))->assertOk();
+        $this->actingAs($supervisor)->get(route('supervisor.empresas.index'))->assertOk();
         $this->actingAs($supervisor)->get(route('admin.inicio'))->assertForbidden();
     }
 

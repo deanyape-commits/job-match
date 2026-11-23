@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <div class="mb-6 space-y-1">
+        <h2 class="font-display text-3xl font-bold">Crea tu cuenta</h2>
+        <p class="text-slate-600">Es gratis y te toma un minuto.</p>
+    </div>
+
     {{-- x-data (Alpine.js, viene con Breeze): muestra los campos de empresa solo si se elige "Busco talento" --}}
     <form method="POST" action="{{ route('register') }}" x-data="{ tipo: '{{ old('tipo_cuenta', 'postulante') }}' }">
         @csrf
@@ -8,13 +13,13 @@
             <legend class="block font-medium text-sm text-gray-700">¿Cómo quieres usar JobMatch?</legend>
             <div class="mt-2 grid grid-cols-2 gap-3">
                 <label class="cursor-pointer rounded-lg border-2 p-3 transition"
-                       :class="tipo === 'postulante' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200'">
+                       :class="tipo === 'postulante' ? 'border-blue-600 bg-blue-50' : 'border-gray-200'">
                     <input type="radio" name="tipo_cuenta" value="postulante" x-model="tipo" class="sr-only">
                     <span class="block font-semibold text-gray-900">Busco empleo</span>
                     <span class="block text-xs text-gray-600">Cuenta de postulante</span>
                 </label>
                 <label class="cursor-pointer rounded-lg border-2 p-3 transition"
-                       :class="tipo === 'reclutador' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200'">
+                       :class="tipo === 'reclutador' ? 'border-blue-600 bg-blue-50' : 'border-gray-200'">
                     <input type="radio" name="tipo_cuenta" value="reclutador" x-model="tipo" class="sr-only">
                     <span class="block font-semibold text-gray-900">Busco talento</span>
                     <span class="block text-xs text-gray-600">Cuenta de reclutador</span>
@@ -47,7 +52,7 @@
                 <div>
                     <x-input-label for="ubicacion_id" value="Ubicación" />
                     <select id="ubicacion_id" name="ubicacion_id" x-bind:required="tipo === 'reclutador'"
-                            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                            class="block mt-1 w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
                         <option value="">Selecciona…</option>
                         @foreach ($ubicaciones as $ubicacion)
                             <option value="{{ $ubicacion->id }}" @selected(old('ubicacion_id') == $ubicacion->id)>
@@ -94,14 +99,10 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                ¿Ya tienes cuenta?
-            </a>
+        <x-primary-button class="mt-6 w-full py-3 text-base">Crear cuenta</x-primary-button>
 
-            <x-primary-button class="ms-4">
-                Crear cuenta
-            </x-primary-button>
-        </div>
+        <p class="mt-4 text-center text-sm text-slate-600">
+            ¿Ya tienes cuenta? <a href="{{ route('login') }}" class="font-semibold text-blue-700 hover:text-blue-900">Iniciar sesión</a>
+        </p>
     </form>
 </x-guest-layout>

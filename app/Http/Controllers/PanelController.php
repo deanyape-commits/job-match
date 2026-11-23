@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Empresa;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
- * Paneles de inicio de cada rol.
- * Son provisionales: en la fase 5 se reemplazan por las pantallas del diseño.
+ * Paneles de inicio provisionales (postulante y administrador).
+ * Se reemplazan en los siguientes pasos de la fase 5.
  */
 class PanelController extends Controller
 {
@@ -27,20 +26,6 @@ class PanelController extends Controller
     {
         return view('paneles.postulante', [
             'perfil' => $request->user()->perfilPostulante,
-        ]);
-    }
-
-    public function reclutador(Request $request): View
-    {
-        return view('paneles.reclutador', [
-            'empresa' => $request->user()->empresa,
-        ]);
-    }
-
-    public function supervisor(): View
-    {
-        return view('paneles.supervisor', [
-            'empresasPendientes' => Empresa::where('estado', 'pendiente')->count(),
         ]);
     }
 

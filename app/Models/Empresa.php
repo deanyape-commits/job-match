@@ -49,6 +49,16 @@ class Empresa extends Model
         return $this->hasMany(Vacante::class);
     }
 
+    /** Iniciales para el "logo" de texto: "Inka Fintech S.A.C." → "IF". */
+    public function getInicialesAttribute(): string
+    {
+        return collect(explode(' ', $this->razon_social))
+            ->filter()
+            ->take(2)
+            ->map(fn ($palabra) => mb_strtoupper(mb_substr($palabra, 0, 1)))
+            ->implode('');
+    }
+
     public function estaVerificada(): bool
     {
         return $this->estado === 'verificada';

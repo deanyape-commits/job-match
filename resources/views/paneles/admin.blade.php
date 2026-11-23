@@ -17,7 +17,7 @@
             <div class="bg-white shadow-sm sm:rounded-lg p-6 text-gray-600">
                 Próximamente (fase 5): gestión de usuarios, catálogos y reportes.
                 Como administrador también puedes entrar al
-                <a href="{{ route('supervisor.inicio') }}" class="text-indigo-600 underline">panel del supervisor</a>.
+                <a href="{{ route('supervisor.inicio') }}" class="text-blue-600 underline">panel del supervisor</a>.
             </div>
         </div>
     </div>

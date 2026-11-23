@@ -27,8 +27,8 @@ class BaseDeDatosTest extends TestCase
     {
         parent::setUp();
 
-        $ubicacion = Ubicacion::create(['departamento' => 'Lima', 'provincia' => 'Lima']);
-        $categoria = Categoria::create(['nombre' => 'Desarrollo de software', 'slug' => 'desarrollo-de-software']);
+        $ubicacion = Ubicacion::firstOrCreate(['departamento' => 'Lima', 'provincia' => 'Lima']);
+        $categoria = Categoria::firstOrCreate(['nombre' => 'Desarrollo de software', 'slug' => 'desarrollo-de-software']);
 
         $empresa = Empresa::create([
             'ubicacion_id' => $ubicacion->id,
