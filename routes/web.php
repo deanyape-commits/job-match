@@ -59,6 +59,16 @@ Route::middleware('auth')->group(function () {
             ->except('show')
             ->parameters(['vacantes' => 'vacante']);
         Route::patch('vacantes/{vacante}/cerrar', [Reclutador\VacanteController::class, 'cerrar'])->name('vacantes.cerrar');
+
+        // Candidatos y gestión de postulaciones
+        Route::get('vacantes/{vacante}/candidatos', [Reclutador\CandidatoController::class, 'index'])->name('vacantes.candidatos');
+        Route::get('postulaciones/{postulacion}', [Reclutador\CandidatoController::class, 'show'])->name('postulaciones.show');
+        Route::patch('postulaciones/{postulacion}/estado', [Reclutador\CandidatoController::class, 'cambiarEstado'])->name('postulaciones.estado');
+
+        // Entrevistas (videollamada con Jitsi)
+        Route::get('entrevistas', [Reclutador\EntrevistaController::class, 'index'])->name('entrevistas.index');
+        Route::post('postulaciones/{postulacion}/entrevistas', [Reclutador\EntrevistaController::class, 'store'])->name('entrevistas.store');
+        Route::patch('entrevistas/{entrevista}', [Reclutador\EntrevistaController::class, 'update'])->name('entrevistas.update');
     });
 
     // ---------------- Supervisor (el administrador también puede entrar) ----------------

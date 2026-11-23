@@ -13,6 +13,15 @@ class Postulacion extends Model
 
     public const ESTADOS = ['postulado', 'en_revision', 'entrevista', 'rechazado', 'contratado'];
 
+    /** Texto que ve el reclutador para cada estado. */
+    public const ESTADOS_TEXTO = [
+        'postulado' => 'Postulado',
+        'en_revision' => 'En revisión',
+        'entrevista' => 'Entrevista',
+        'rechazado' => 'Rechazado',
+        'contratado' => 'Contratado',
+    ];
+
     protected $table = 'postulaciones';
 
     protected $fillable = [

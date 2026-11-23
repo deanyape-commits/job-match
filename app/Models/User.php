@@ -92,6 +92,13 @@ class User extends Authenticatable
         return $this->hasOne(PerfilPostulante::class, 'usuario_id');
     }
 
+    /** Iniciales para el avatar: "Luis Quispe Mamani" → "LQ". */
+    public function getInicialesAttribute(): string
+    {
+        return collect(explode(' ', $this->nombre))->filter()->take(2)
+            ->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->implode('');
+    }
+
     /** Perfil del postulante; si por algún motivo no existe, lo crea vacío. */
     public function perfil(): PerfilPostulante
     {

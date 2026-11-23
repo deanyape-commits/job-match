@@ -6,8 +6,7 @@
         ['Guardados', 'postulante.guardados.index', 'postulante.guardados.*'],
         ['Mi perfil', 'postulante.perfil.edit', 'postulante.perfil.*'],
     ];
-    $iniciales = collect(explode(' ', Auth::user()->nombre))->filter()->take(2)
-        ->map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)))->implode('');
+    $iniciales = Auth::user()->iniciales;
 @endphp
 
 <nav x-data="{ open: false }" class="bg-white border-b border-slate-200">

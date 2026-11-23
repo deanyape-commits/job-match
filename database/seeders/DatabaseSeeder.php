@@ -58,6 +58,36 @@ class DatabaseSeeder extends Seeder
                 ));
         });
 
+        // Postulantes que ya postularon a las vacantes de Inka Fintech (para ver candidatos)
+        $matching = app(\App\Services\MatchingService::class);
+        $tecnicas = Habilidad::where('tipo', 'tecnica')->pluck('id');
+        $vacantesInka = Vacante::where('empresa_id', $empresa->id)->with('habilidades')->get();
+        User::factory()->postulante()->count(12)->create()->each(function (User $u) use ($matching, $tecnicas, $vacantesInka) {
+            $perfil = $u->perfilPostulante;
+            // Mezcla habilidades de las vacantes con otras al azar, para que el match varíe
+            $ids = $vacantesInka->random()->habilidades->pluck('id')->random(rand(1, 4))
+                ->merge($tecnicas->random(rand(2, 5)))->unique();
+            $perfil->habilidades()->sync($ids->mapWithKeys(fn ($id) => [$id => ['nivel' => rand(1, 5)]]));
+
+            foreach ($vacantesInka->random(rand(1, 2)) as $vacante) {
+                $postulacion = $perfil->postulaciones()->create([
+                    'vacante_id' => $vacante->id,
+                    'porcentaje_match' => $matching->calcular($perfil, $vacante)['porcentaje'],
+                    'created_at' => now()->subDays(rand(0, 40)),
+                ]);
+                $estado = collect(['postulado', 'postulado', 'en_revision', 'en_revision', 'entrevista', 'rechazado'])->random();
+                if ($estado !== 'postulado') {
+                    $postulacion->update(['estado' => $estado]); // el trigger registra el historial
+                }
+                if ($estado === 'entrevista') {
+                    $postulacion->entrevistas()->create([
+                        'fecha_hora' => now()->addDays(rand(1, 6))->setTime(rand(9, 17), 0),
+                        'enlace_reunion' => \App\Models\Entrevista::generarEnlaceJitsi(),
+                    ]);
+                }
+            }
+        });
+
         // Postulante de demostración con perfil completo
         $postulante = User::factory()->postulante()->create([
             'nombre' => 'Luis Quispe Mamani',
