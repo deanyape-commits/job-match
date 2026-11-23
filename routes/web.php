@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CvController;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\Postulante;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Reclutador;
 use App\Http\Controllers\Supervisor;
@@ -23,8 +25,31 @@ Route::middleware('auth')->group(function () {
 
     // ---------------- Postulante ----------------
     Route::middleware('rol:postulante')->prefix('postulante')->name('postulante.')->group(function () {
-        Route::get('/', [PanelController::class, 'postulante'])->name('inicio');
+        Route::get('/', fn () => redirect()->route('postulante.vacantes.index'))->name('inicio');
+
+        // Buscar vacantes y detalle (por slug: /postulante/vacantes/desarrollador-laravel-ab12cd)
+        Route::get('vacantes', [Postulante\VacanteController::class, 'index'])->name('vacantes.index');
+        Route::get('vacantes/{vacante:slug}', [Postulante\VacanteController::class, 'show'])->name('vacantes.show');
+        Route::post('vacantes/{vacante:slug}/guardar', [Postulante\VacanteController::class, 'guardar'])->name('vacantes.guardar');
+        Route::post('vacantes/{vacante:slug}/postular', [Postulante\PostulacionController::class, 'store'])->name('vacantes.postular');
+
+        Route::get('postulaciones', [Postulante\PostulacionController::class, 'index'])->name('postulaciones.index');
+        Route::get('postulaciones/{postulacion}', [Postulante\PostulacionController::class, 'show'])->name('postulaciones.show');
+
+        Route::get('guardados', Postulante\GuardadoController::class)->name('guardados.index');
+
+        // Perfil profesional
+        Route::get('perfil', [Postulante\PerfilController::class, 'edit'])->name('perfil.edit');
+        Route::patch('perfil', [Postulante\PerfilController::class, 'update'])->name('perfil.update');
+        Route::put('perfil/habilidades', [Postulante\PerfilController::class, 'habilidades'])->name('perfil.habilidades');
+        Route::post('perfil/experiencias', [Postulante\PerfilController::class, 'agregarExperiencia'])->name('perfil.experiencias.store');
+        Route::delete('perfil/experiencias/{experiencia}', [Postulante\PerfilController::class, 'eliminarExperiencia'])->name('perfil.experiencias.destroy');
+        Route::post('perfil/estudios', [Postulante\PerfilController::class, 'agregarEstudio'])->name('perfil.estudios.store');
+        Route::delete('perfil/estudios/{estudio}', [Postulante\PerfilController::class, 'eliminarEstudio'])->name('perfil.estudios.destroy');
     });
+
+    // CV protegido (lo ven el dueño, los reclutadores a cuyas vacantes postuló, supervisores y admin)
+    Route::get('cv/{perfil}', CvController::class)->name('cv.show');
 
     // ---------------- Reclutador ----------------
     Route::middleware('rol:reclutador')->prefix('reclutador')->name('reclutador.')->group(function () {

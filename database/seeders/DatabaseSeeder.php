@@ -48,9 +48,39 @@ class DatabaseSeeder extends Seeder
         Empresa::factory()->pendiente()->count(3)->create()
             ->each(fn (Empresa $e) => User::factory()->reclutador($e)->create());
 
-        User::factory()->postulante()->create([
+        // Más empresas verificadas con vacantes, para que el buscador tenga contenido
+        Empresa::factory()->count(6)->create()->each(function (Empresa $e) {
+            $reclutador = User::factory()->reclutador($e)->create();
+            Vacante::factory()->count(3)->create(['empresa_id' => $e->id, 'reclutador_id' => $reclutador->id])
+                ->each(fn (Vacante $v) => $v->habilidades()->attach(
+                    Habilidad::where('tipo', 'tecnica')->inRandomOrder()->limit(5)->pluck('id')
+                        ->mapWithKeys(fn ($id, $i) => [$id => ['obligatoria' => $i < 3]])
+                ));
+        });
+
+        // Postulante de demostración con perfil completo
+        $postulante = User::factory()->postulante()->create([
             'nombre' => 'Luis Quispe Mamani',
             'email' => 'postulante@jobmatch.test',
+        ]);
+        $perfil = $postulante->perfilPostulante;
+        $perfil->update([
+            'titular' => 'Desarrollador Backend Jr.',
+            'ubicacion_id' => \App\Models\Ubicacion::where('departamento', 'Lima')->value('id'),
+            'anios_experiencia' => 2,
+        ]);
+        $perfil->habilidades()->sync(
+            Habilidad::whereIn('nombre', ['PHP', 'Laravel', 'PostgreSQL', 'SQL', 'Git', 'JavaScript', 'Vue.js', 'Docker', 'Trabajo en equipo', 'Inglés intermedio'])
+                ->pluck('id')->mapWithKeys(fn ($id) => [$id => ['nivel' => rand(2, 5)]])
+        );
+        $perfil->experiencias()->create([
+            'empresa_nombre' => 'Andina Software S.A.C.', 'cargo' => 'Practicante de desarrollo',
+            'fecha_inicio' => now()->subYears(2), 'fecha_fin' => now()->subYear(),
+            'descripcion' => 'Desarrollo de módulos en Laravel y mantenimiento de la base de datos.',
+        ]);
+        $perfil->estudios()->create([
+            'institucion' => 'Tecsup', 'grado' => 'tecnico', 'carrera' => 'Diseño y Desarrollo de Software',
+            'fecha_inicio' => now()->subYears(4), 'fecha_fin' => now()->subYear(),
         ]);
     }
 }

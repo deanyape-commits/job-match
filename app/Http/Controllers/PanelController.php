@@ -22,13 +22,6 @@ class PanelController extends Controller
         return redirect()->route($request->user()->rutaInicio());
     }
 
-    public function postulante(Request $request): View
-    {
-        return view('paneles.postulante', [
-            'perfil' => $request->user()->perfilPostulante,
-        ]);
-    }
-
     public function admin(): View
     {
         return view('paneles.admin', [

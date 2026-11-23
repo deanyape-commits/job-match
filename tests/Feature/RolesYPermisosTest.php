@@ -112,7 +112,7 @@ class RolesYPermisosTest extends TestCase
     {
         $postulante = $this->usuarioConRol(Rol::POSTULANTE);
 
-        $this->actingAs($postulante)->get(route('postulante.inicio'))->assertOk();
+        $this->actingAs($postulante)->get(route('postulante.vacantes.index'))->assertOk();
         $this->actingAs($postulante)->get(route('reclutador.inicio'))->assertForbidden();
         $this->actingAs($postulante)->get(route('supervisor.inicio'))->assertForbidden();
         $this->actingAs($postulante)->get(route('admin.inicio'))->assertForbidden();

@@ -92,6 +92,12 @@ class User extends Authenticatable
         return $this->hasOne(PerfilPostulante::class, 'usuario_id');
     }
 
+    /** Perfil del postulante; si por algún motivo no existe, lo crea vacío. */
+    public function perfil(): PerfilPostulante
+    {
+        return $this->perfilPostulante ?? $this->perfilPostulante()->create();
+    }
+
     /** 1:N — Vacantes creadas por el reclutador. */
     public function vacantesCreadas(): HasMany
     {
