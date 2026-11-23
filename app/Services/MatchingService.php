@@ -32,9 +32,24 @@ class MatchingService
      */
     public function calcular(PerfilPostulante $perfil, Vacante $vacante): array
     {
-        $idsPerfil = $perfil->habilidades()->pluck('habilidades.id')->all();
-        $vacante->loadMissing('habilidades', 'ubicacion');
         $perfil->loadMissing('ubicacion');
+
+        return $this->calcularConDatos(
+            $perfil->habilidades()->pluck('habilidades.id')->all(),
+            $perfil->ubicacion?->departamento,
+            $vacante
+        );
+    }
+
+    /**
+     * Misma fórmula, recibiendo los datos del postulante ya cargados
+     * (lo usan los seeders para calcular miles de postulaciones sin repetir consultas).
+     *
+     * @param  list<int>  $idsPerfil  IDs de las habilidades del postulante
+     */
+    public function calcularConDatos(array $idsPerfil, ?string $departamentoPerfil, Vacante $vacante): array
+    {
+        $vacante->loadMissing('habilidades', 'ubicacion');
 
         $habilidades = $vacante->habilidades
             ->map(fn ($h) => [
@@ -49,7 +64,7 @@ class MatchingService
         $deseables = $habilidades->where('obligatoria', false);
 
         $ubicacionOk = $vacante->modalidad === 'remoto'
-            || ($perfil->ubicacion && $perfil->ubicacion->departamento === $vacante->ubicacion?->departamento);
+            || ($departamentoPerfil !== null && $departamentoPerfil === $vacante->ubicacion?->departamento);
 
         $porcentaje = self::PESO_OBLIGATORIAS * $this->proporcion($obligatorias->where('tiene', true)->count(), $obligatorias->count())
             + self::PESO_DESEABLES * $this->proporcion($deseables->where('tiene', true)->count(), $deseables->count())

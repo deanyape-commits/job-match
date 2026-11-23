@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Ubicacion;
+use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,7 @@ class EmpresaFactory extends Factory
             'ubicacion_id' => fn () => Ubicacion::inRandomOrder()->value('id'),
             'razon_social' => $nombre.' '.fake()->randomElement(['S.A.C.', 'S.A.', 'E.I.R.L.', 'S.R.L.']),
             'ruc' => '20'.fake()->unique()->numerify('#########'),
-            'descripcion' => fake()->paragraph(3),
+            'descripcion' => fake()->randomElement(Textos::EMPRESAS),
             'sitio_web' => 'https://'.strtolower(str_replace([' ', 'ú', 'ó', 'í'], ['', 'u', 'o', 'i'], $nombre)).'.pe',
             'tamano' => fake()->randomElement(['1-10', '11-50', '51-200', '201-500', '500+']),
             'estado' => 'verificada',

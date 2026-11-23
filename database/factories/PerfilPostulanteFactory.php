@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Ubicacion;
 use App\Models\User;
+use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,7 +26,7 @@ class PerfilPostulanteFactory extends Factory
             'usuario_id' => User::factory(),
             'ubicacion_id' => fn () => Ubicacion::inRandomOrder()->value('id'),
             'titular' => fake()->randomElement(self::TITULARES).($anios < 2 ? ' Jr.' : ''),
-            'resumen' => fake()->paragraph(2),
+            'resumen' => fake()->randomElement(Textos::RESUMENES),
             'fecha_nacimiento' => fake()->dateTimeBetween('-40 years', '-19 years'),
             'anios_experiencia' => $anios,
             'salario_esperado' => fake()->numberBetween(12, 90) * 100,

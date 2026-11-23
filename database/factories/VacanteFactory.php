@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Empresa;
 use App\Models\Ubicacion;
 use App\Models\User;
+use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -36,8 +37,8 @@ class VacanteFactory extends Factory
             'ubicacion_id' => fn () => Ubicacion::inRandomOrder()->value('id'),
             'titulo' => $titulo.($nivel === 'senior' ? ' Sr.' : ($nivel === 'junior' ? ' Jr.' : '')),
             'slug' => fn (array $atributos) => Str::slug($atributos['titulo']).'-'.Str::lower(Str::random(6)),
-            'descripcion' => implode("\n\n", fake()->paragraphs(3)),
-            'requisitos' => implode("\n", array_map(fn ($r) => '- '.$r, fake()->sentences(4))),
+            'descripcion' => "Buscamos un(a) profesional para sumarse a nuestro equipo de tecnología.\n\nFunciones principales:\n".Textos::lista(Textos::FUNCIONES, 3, 5),
+            'requisitos' => Textos::lista(Textos::REQUISITOS, 3, 5),
             'modalidad' => fake()->randomElement(['presencial', 'remoto', 'hibrido']),
             'tipo_contrato' => $nivel === 'practicante' ? 'practicas' : fake()->randomElement(['tiempo_completo', 'tiempo_completo', 'medio_tiempo', 'freelance']),
             'nivel_experiencia' => $nivel,
