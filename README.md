@@ -1,66 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# JobMatch
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Plataforma web de búsqueda de empleo del sector tecnológico en el Perú. JobMatch compara el perfil de cada postulante con las habilidades que pide cada vacante y muestra un **porcentaje de compatibilidad (match)**, tanto al postulante como a la empresa.
 
-## About Laravel
+Proyecto final · Desarrollo de Aplicaciones Web y Base de Datos · Tecsup
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Capa | Tecnología |
+|---|---|
+| Backend | Laravel 12 (PHP 8.2), ORM Eloquent |
+| Vistas | Plantillas Blade + Tailwind CSS + Alpine.js, compiladas con Vite |
+| Autenticación | Laravel Breeze (Blade), contraseñas con bcrypt |
+| Base de datos | PostgreSQL 15 (triggers y procedimiento almacenado en PL/pgSQL) |
+| Correo | SMTP (Mailpit en desarrollo) |
+| Videollamadas | Jitsi Meet (enlaces generados, sin API) |
+| Contenedores | Docker Compose (PostgreSQL y Mailpit) |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Roles
 
-## Learning Laravel
+| Rol | Qué puede hacer |
+|---|---|
+| **Postulante** | Completa su perfil (CV, experiencia, estudios, habilidades), busca vacantes ordenadas por compatibilidad, postula, guarda favoritas y sigue sus procesos y entrevistas. |
+| **Reclutador** | Pertenece a una empresa. Publica vacantes, revisa candidatos ordenados por match, cambia estados y agenda entrevistas por videollamada. |
+| **Supervisor** | Verifica o rechaza las empresas registradas. Solo las empresas verificadas pueden publicar. |
+| **Administrador** | Ve el resumen de la plataforma y gestiona usuarios (roles, activar o desactivar). |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Requisitos
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.2 o superior con las extensiones `pdo_pgsql` y `pgsql` activadas. En XAMPP, quita el `;` de `extension=pdo_pgsql` y `extension=pgsql` en `C:\xampp\php\php.ini`.
+- Composer 2
+- Node.js 20 o superior
+- Docker Desktop
+- Git
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalación
 
-## Laravel Sponsors
+```bash
+git clone <url-del-repositorio> job-match
+cd job-match
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+composer install
+npm install
 
-### Premium Partners
+cp .env.example .env          # en Windows PowerShell: copy .env.example .env
+php artisan key:generate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+docker compose up -d          # levanta PostgreSQL (5432) y Mailpit (1025 / 8025)
 
-## Contributing
+php artisan migrate:fresh --seed   # crea las tablas, triggers, procedimiento y ~1 minuto de datos de prueba
+npm run build
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Ejecutar
 
-## Code of Conduct
+Abre dos terminales en la carpeta del proyecto:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan serve    # http://localhost:8000
+npm run dev          # recompila los estilos al guardar cambios (opcional)
+```
 
-## Security Vulnerabilities
+- **Aplicación:** http://localhost:8000
+- **Bandeja de correos de prueba (Mailpit):** http://localhost:8025
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Antes de trabajar, abre Docker Desktop. Los contenedores `jobmatch-db` y `jobmatch-mail` se inician solos.
 
-## License
+## Cuentas de prueba
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Todas usan la contraseña **`password`**.
+
+| Correo | Rol | Qué tiene |
+|---|---|---|
+| `admin@jobmatch.test` | Administrador | Acceso al resumen, usuarios y validación de empresas |
+| `supervisor@jobmatch.test` | Supervisor | Empresas pendientes por validar |
+| `reclutador@jobmatch.test` | Reclutador | Inka Fintech S.A.C., con vacantes, candidatos y entrevistas |
+| `postulante@jobmatch.test` | Postulante | Perfil completo, postulaciones y una entrevista en 2 días |
+
+## Datos de prueba
+
+`php artisan migrate:fresh --seed` **borra toda la base** y la vuelve a llenar con seeders jerárquicos:
+
+1. `CatalogoSeeder`: 4 roles, 43 ubicaciones del Perú, 12 categorías y 83 habilidades
+2. `UsuarioSeeder`: administrador y 2 supervisores
+3. `EmpresaSeeder`: 60 empresas (50 verificadas, 6 pendientes, 4 rechazadas) con 1 a 3 reclutadores
+4. `PostulanteSeeder`: 1 000 postulantes con perfil, experiencias, estudios y habilidades
+5. `VacanteSeeder`: 500 vacantes con sus habilidades
+6. `PostulacionSeeder`: unas 3 700 postulaciones con el match calculado, y entrevistas
+
+## Tests
+
+```bash
+php artisan test
+```
+
+Los tests usan una base de datos separada, `jobmatch_test`, que Docker crea automáticamente (`docker/postgres/init.sql`), así que no tocan los datos de desarrollo. Hay más de 100 tests: triggers, procedimiento almacenado, matching, permisos por rol y cada pantalla.
+
+## Estructura principal
+
+```
+app/
+  Http/Controllers/
+    Postulante/   Reclutador/   Supervisor/   Admin/   ← un controlador por pantalla y rol
+  Http/Middleware/VerificarRol.php                     ← middleware 'rol:reclutador'
+  Models/                                              ← 13 modelos Eloquent con sus relaciones
+  Notifications/                                       ← correos y avisos de la campanita
+  Policies/                                            ← reglas: cada reclutador solo ve lo de su empresa
+  Services/MatchingService.php                         ← cálculo del % de compatibilidad
+database/
+  migrations/   ← tablas en español + triggers y procedimiento (2026_11_22_000017_…)
+  factories/    seeders/
+resources/views/  ← vistas Blade por rol
+docs/             ← modelo de datos y resumen para el informe
+```
+
+## Documentación
+
+- [`docs/modelo-de-datos.md`](docs/modelo-de-datos.md): MER, diccionario de datos y de relaciones
+- [`docs/resumen-informe.md`](docs/resumen-informe.md): resumen técnico para el informe y la exposición

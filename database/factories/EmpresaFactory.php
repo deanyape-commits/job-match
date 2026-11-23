@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Empresa;
 use App\Models\Ubicacion;
 use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Empresa>
+ * @extends Factory<Empresa>
  */
 class EmpresaFactory extends Factory
 {

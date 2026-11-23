@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Habilidad;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -51,7 +52,7 @@ class VacanteRequest extends FormRequest
         return [
             function ($validator) {
                 $ids = array_keys($this->input('habilidades', []));
-                if ($ids && \App\Models\Habilidad::whereIn('id', $ids)->count() !== count($ids)) {
+                if ($ids && Habilidad::whereIn('id', $ids)->count() !== count($ids)) {
                     $validator->errors()->add('habilidades', 'Alguna habilidad seleccionada no existe.');
                 }
             },

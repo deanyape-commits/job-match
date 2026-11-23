@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\PerfilPostulante;
+use App\Models\Postulacion;
 use App\Models\Vacante;
 use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Postulacion>
+ * @extends Factory<Postulacion>
  */
 class PostulacionFactory extends Factory
 {

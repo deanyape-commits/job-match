@@ -26,6 +26,7 @@ class PostulacionSeeder extends Seeder
 {
     /** Candidatos por vacante (promedio ≈ 8 → unas 3 700 postulaciones). */
     public const MIN_POR_VACANTE = 3;
+
     public const MAX_POR_VACANTE = 13;
 
     private array $pares = [];

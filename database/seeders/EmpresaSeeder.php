@@ -13,7 +13,9 @@ use Illuminate\Database\Seeder;
 class EmpresaSeeder extends Seeder
 {
     public const VERIFICADAS = 50;
+
     public const PENDIENTES = 6;
+
     public const RECHAZADAS = 4;
 
     public function run(): void

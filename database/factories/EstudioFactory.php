@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Estudio;
 use App\Models\PerfilPostulante;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Estudio>
+ * @extends Factory<Estudio>
  */
 class EstudioFactory extends Factory
 {

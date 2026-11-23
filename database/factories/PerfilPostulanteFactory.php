@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\PerfilPostulante;
 use App\Models\Ubicacion;
 use App\Models\User;
 use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PerfilPostulante>
+ * @extends Factory<PerfilPostulante>
  */
 class PerfilPostulanteFactory extends Factory
 {

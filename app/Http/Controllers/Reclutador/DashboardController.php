@@ -7,7 +7,6 @@ use App\Models\Entrevista;
 use App\Models\Postulacion;
 use App\Models\Vacante;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 

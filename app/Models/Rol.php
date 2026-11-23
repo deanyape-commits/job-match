@@ -9,8 +9,11 @@ class Rol extends Model
 {
     // Slugs de los roles del sistema
     public const ADMINISTRADOR = 'administrador';
+
     public const SUPERVISOR = 'supervisor';
+
     public const RECLUTADOR = 'reclutador';
+
     public const POSTULANTE = 'postulante';
 
     protected $table = 'roles';

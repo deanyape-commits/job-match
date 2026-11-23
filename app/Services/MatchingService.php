@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\PerfilPostulante;
 use App\Models\Vacante;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Calcula el porcentaje de compatibilidad (match) entre un postulante y una vacante.
@@ -22,13 +23,15 @@ use Illuminate\Database\Eloquent\Builder;
 class MatchingService
 {
     public const PESO_OBLIGATORIAS = 70;
+
     public const PESO_DESEABLES = 20;
+
     public const PESO_UBICACION = 10;
 
     /**
      * @return array{porcentaje: float, obligatorias_total: int, obligatorias_tiene: int,
      *               deseables_total: int, deseables_tiene: int, ubicacion_ok: bool,
-     *               habilidades: \Illuminate\Support\Collection}
+     *               habilidades: Collection}
      */
     public function calcular(PerfilPostulante $perfil, Vacante $vacante): array
     {

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Postulante;
 
 use App\Http\Controllers\Controller;
-use App\Models\Experiencia;
 use App\Models\Estudio;
+use App\Models\Experiencia;
 use App\Models\Habilidad;
 use App\Models\Ubicacion;
 use Illuminate\Http\RedirectResponse;

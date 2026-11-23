@@ -6,12 +6,13 @@ use App\Models\Categoria;
 use App\Models\Empresa;
 use App\Models\Ubicacion;
 use App\Models\User;
+use App\Models\Vacante;
 use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vacante>
+ * @extends Factory<Vacante>
  */
 class VacanteFactory extends Factory
 {

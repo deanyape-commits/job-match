@@ -252,7 +252,7 @@ protected function casts(): array {
 
 Así cumplimos "las contraseñas no se almacenan en texto plano" con un algoritmo seguro. Es un buen punto para defender en la exposición.
 
-Además: middleware de roles (`rol:reclutador`), *policies* (un reclutador solo edita las vacantes de su empresa) y protección CSRF de Blade.
+Además: middleware de roles (`rol:reclutador`), *policies* (un reclutador solo edita las vacantes de su empresa), protección CSRF de Blade y CV guardados fuera de la carpeta pública (solo se descargan a través de una ruta que verifica permisos).
 
 ---
 
@@ -277,15 +277,14 @@ Devuelve para la empresa y el rango de fechas: vacantes publicadas, total de pos
 
 Orden en `DatabaseSeeder` (respeta la integridad referencial):
 
-1. `RolSeeder`: los 4 roles
-2. `UbicacionSeeder`, `CategoriaSeeder`, `HabilidadSeeder`: catálogos reales (departamentos del Perú, áreas TI, ~80 habilidades)
-3. `UsuarioSeeder`: 1 administrador y 2 supervisores con credenciales conocidas para la demo
-4. `EmpresaSeeder`: **60 empresas**, cada una con 1–3 reclutadores
-5. `PostulanteSeeder`: **1 000 postulantes** con perfil, experiencias, estudios y habilidades
-6. `VacanteSeeder`: **500 vacantes** con 3–8 habilidades cada una
-7. `PostulacionSeeder`: **~4 000 postulaciones** con `porcentaje_match` calculado, más entrevistas para las que están en estado `entrevista`
+1. `CatalogoSeeder`, que llama a `RolSeeder`, `UbicacionSeeder`, `CategoriaSeeder` y `HabilidadSeeder`: 4 roles, 43 ubicaciones del Perú, 12 áreas TI y 83 habilidades
+2. `UsuarioSeeder`: 1 administrador y 2 supervisores con credenciales conocidas para la demo
+3. `EmpresaSeeder`: **60 empresas** (50 verificadas, 6 pendientes, 4 rechazadas), cada una con 1–3 reclutadores
+4. `PostulanteSeeder`: **1 000 postulantes** con perfil, experiencias, estudios y habilidades coherentes con su área
+5. `VacanteSeeder`: **500 vacantes** con 3–8 habilidades de su área
+6. `PostulacionSeeder`: **~3 700 postulaciones** con `porcentaje_match` real (calculado con `MatchingService`) y unas 1 100 entrevistas. Los cambios de estado pasan por los triggers, que generan el historial y cierran las vacantes que cubren sus puestos.
 
-Factories: `UserFactory`, `EmpresaFactory`, `PerfilPostulanteFactory`, `ExperienciaFactory`, `EstudioFactory`, `VacanteFactory`, `PostulacionFactory`, `EntrevistaFactory`, con Faker en español (`APP_FAKER_LOCALE=es_PE`).
+Factories: `UserFactory` (con estados `postulante()`, `reclutador()`, `supervisor()` y `administrador()`), `EmpresaFactory`, `PerfilPostulanteFactory`, `ExperienciaFactory`, `EstudioFactory`, `VacanteFactory`, `PostulacionFactory` y `EntrevistaFactory`. Usan Faker en español (`APP_FAKER_LOCALE=es_PE`) para nombres y un banco de textos propio (`database/seeders/Datos/Textos.php`) para las descripciones.
 
 ---
 

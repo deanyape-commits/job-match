@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Experiencia;
 use App\Models\PerfilPostulante;
 use Database\Seeders\Datos\Textos;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Experiencia>
+ * @extends Factory<Experiencia>
  */
 class ExperienciaFactory extends Factory
 {

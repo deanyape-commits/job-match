@@ -124,10 +124,8 @@ class Vacante extends Model
         $formato = fn ($monto) => number_format((float) $monto, 0, '.', ',');
 
         return match (true) {
-            $this->salario_min && $this->salario_max && $this->salario_min != $this->salario_max
-                => 'S/ '.$formato($this->salario_min).' – '.$formato($this->salario_max),
-            (bool) ($this->salario_min ?: $this->salario_max)
-                => 'S/ '.$formato($this->salario_min ?: $this->salario_max),
+            $this->salario_min && $this->salario_max && $this->salario_min != $this->salario_max => 'S/ '.$formato($this->salario_min).' – '.$formato($this->salario_max),
+            (bool) ($this->salario_min ?: $this->salario_max) => 'S/ '.$formato($this->salario_min ?: $this->salario_max),
             default => 'A tratar',
         };
     }
