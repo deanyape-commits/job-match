@@ -2,7 +2,7 @@
     $pct = (int) round($match['porcentaje']);
     [$colorAnillo, $colorTexto, $titulo] = match (true) {
         $pct >= 80 => ['#0F766E', 'text-teal-700', 'Excelente match'],
-        $pct >= 50 => ['#B45309', 'text-amber-700', 'Buen match'],
+        $pct >= 50 => ['#1D4ED8', 'text-blue-700', 'Buen match'],
         default => ['#64748B', 'text-slate-600', 'Match bajo'],
     };
     $faltantes = $match['habilidades']->where('tiene', false);
@@ -11,13 +11,13 @@
 <x-app-layout>
     <x-slot name="titulo">{{ $vacante->titulo }}</x-slot>
 
-    <a href="{{ url()->previous() !== url()->current() ? url()->previous() : route('postulante.vacantes.index') }}" class="text-sm font-medium text-blue-700 hover:text-blue-900">← Volver</a>
+    <a href="{{ url()->previous() !== url()->current() ? url()->previous() : route('postulante.vacantes.index') }}" class="text-sm font-medium text-coral-700 hover:text-coral-900">← Volver</a>
 
     <div class="mt-4 flex flex-wrap items-start gap-7">
         <main class="min-w-0 flex-[999_1_560px] space-y-5">
             <section class="space-y-5 rounded-2xl border border-slate-200 bg-white p-7">
                 <div class="flex flex-wrap items-center gap-4">
-                    <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-100 text-xl font-bold text-blue-900">{{ $vacante->empresa->iniciales }}</span>
+                    <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-coral-100 text-xl font-bold text-coral-900">{{ $vacante->empresa->iniciales }}</span>
                     <div>
                         <h1 class="font-display text-3xl font-bold leading-tight">{{ $vacante->titulo }}</h1>
                         <p class="mt-1 flex flex-wrap items-center gap-2 text-slate-600">
@@ -42,7 +42,7 @@
                         'Salario' => $vacante->salario_texto,
                         'Puestos' => $vacante->puestos.' '.($vacante->puestos === 1 ? 'puesto' : 'puestos'),
                     ] as $etiqueta => $valor)
-                        <div class="rounded-lg bg-slate-50 px-4 py-3">
+                        <div class="rounded-lg bg-crema px-4 py-3">
                             <dt class="text-xs uppercase tracking-wide text-slate-600">{{ $etiqueta }}</dt>
                             <dd class="font-semibold">{{ $valor }}</dd>
                         </div>
@@ -66,10 +66,13 @@
             {{-- Compatibilidad --}}
             <section aria-label="Compatibilidad" class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
                 <div class="flex items-center gap-5">
-                    <div role="img" aria-label="{{ $pct }} por ciento de compatibilidad"
+                    {{-- El anillo se llena de 0 al % real al abrir la página (data-anillo) --}}
+                    <div role="img" aria-label="{{ $pct }} por ciento de compatibilidad" data-anillo
                          class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full"
-                         style="background: conic-gradient({{ $colorAnillo }} 0 {{ $pct }}%, #E2E8F0 {{ $pct }}% 100%)">
-                        <span class="flex h-[76px] w-[76px] items-center justify-center rounded-full bg-white font-display text-2xl font-bold {{ $colorTexto }}">{{ $pct }}%</span>
+                         style="--pct: {{ $pct }}; --anillo-color: {{ $colorAnillo }}">
+                        <span class="flex h-[76px] w-[76px] items-center justify-center rounded-full bg-white font-display text-2xl font-bold {{ $colorTexto }}">
+                            <span data-contador="{{ $pct }}">{{ $pct }}</span>%
+                        </span>
                     </div>
                     <div>
                         <p class="text-lg font-semibold">{{ $titulo }}</p>
@@ -105,9 +108,9 @@
                 </ul>
 
                 @if ($faltantes->isNotEmpty())
-                    <p class="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-600">
+                    <p class="rounded-lg bg-crema px-3 py-2.5 text-sm text-slate-600">
                         Agrega {{ $faltantes->pluck('nombre')->take(3)->implode(', ') }} a
-                        <a href="{{ route('postulante.perfil.edit') }}" class="font-semibold text-blue-700 underline">tu perfil</a>
+                        <a href="{{ route('postulante.perfil.edit') }}" class="font-semibold text-coral-700 underline">tu perfil</a>
                         si las dominas, para subir tu compatibilidad.
                     </p>
                 @endif
@@ -118,14 +121,14 @@
                 @if ($postulacion)
                     <p class="font-semibold">Ya postulaste a esta vacante</p>
                     <p class="flex items-center gap-2 text-sm text-slate-600">Estado: <x-estado :valor="$postulacion->estado" /></p>
-                    <a href="{{ route('postulante.postulaciones.show', $postulacion) }}" class="flex h-12 items-center justify-center rounded-lg border border-slate-300 font-semibold hover:bg-slate-50">Ver mi postulación</a>
+                    <a href="{{ route('postulante.postulaciones.show', $postulacion) }}" class="flex h-12 items-center justify-center rounded-lg border border-slate-300 font-semibold hover:bg-crema">Ver mi postulación</a>
                 @elseif ($vacante->estado === 'publicada')
                     <form method="POST" action="{{ route('postulante.vacantes.postular', $vacante) }}" class="space-y-3">
                         @csrf
                         <label for="carta_presentacion" class="block text-sm font-semibold">Carta de presentación (opcional)</label>
                         <textarea id="carta_presentacion" name="carta_presentacion" rows="4" maxlength="2000"
                                   placeholder="Cuéntale a la empresa por qué te interesa el puesto…"
-                                  class="block w-full rounded-lg border-slate-300 text-sm shadow-sm focus:border-blue-600 focus:ring-blue-600">{{ old('carta_presentacion') }}</textarea>
+                                  class="block w-full rounded-lg border-slate-300 text-sm shadow-sm focus:border-coral-600 focus:ring-coral-600">{{ old('carta_presentacion') }}</textarea>
                         <x-input-error :messages="$errors->get('carta_presentacion')" />
                         <x-primary-button class="w-full py-3 text-base">Postular ahora</x-primary-button>
                     </form>
@@ -133,14 +136,19 @@
                         @if ($perfil->cv_ruta)
                             Se enviará tu perfil y tu CV.
                         @else
-                            Aún no subiste tu CV. <a href="{{ route('postulante.perfil.edit') }}" class="font-semibold text-blue-700 underline">Súbelo aquí</a>.
+                            Aún no subiste tu CV. <a href="{{ route('postulante.perfil.edit') }}" class="font-semibold text-coral-700 underline">Súbelo aquí</a>.
                         @endif
                     </p>
                 @endif
 
-                <form method="POST" action="{{ route('postulante.vacantes.guardar', $vacante) }}">
+                <form method="POST" action="{{ route('postulante.vacantes.guardar', $vacante) }}"
+                      x-data="guardarVacante(@js(route('postulante.vacantes.guardar', $vacante)), {{ $guardada ? 'true' : 'false' }})"
+                      @submit.prevent="alternar()">
                     @csrf
-                    <x-secondary-button type="submit" class="w-full py-3">{{ $guardada ? 'Quitar de guardados' : 'Guardar vacante' }}</x-secondary-button>
+                    <x-secondary-button type="submit" class="w-full gap-2 py-3" ::disabled="enviando">
+                        <svg :class="rebotar && 'animate-rebote'" width="18" height="18" viewBox="0 0 24 24" :fill="guardada ? 'currentColor' : 'none'" fill="{{ $guardada ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" class="text-coral-700" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z" /></svg>
+                        <span x-text="guardada ? 'Quitar de guardados' : 'Guardar vacante'">{{ $guardada ? 'Quitar de guardados' : 'Guardar vacante' }}</span>
+                    </x-secondary-button>
                 </form>
             </section>
         </aside>

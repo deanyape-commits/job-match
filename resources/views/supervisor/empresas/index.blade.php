@@ -11,7 +11,7 @@
         @foreach (['pendiente' => ['Pendientes', 'text-amber-600'], 'verificada' => ['Verificadas', 'text-teal-700'], 'rechazada' => ['Rechazadas', 'text-red-700']] as $clave => [$texto, $color])
             <a href="{{ route('supervisor.empresas.index', ['estado' => $clave]) }}"
                @if ($estado === $clave) aria-current="page" @endif
-               class="rounded-xl border bg-white p-5 transition {{ $estado === $clave ? 'border-blue-700 ring-2 ring-blue-700' : 'border-slate-200 hover:border-slate-300' }}">
+               class="rounded-xl border bg-white p-5 transition {{ $estado === $clave ? 'border-coral-700 ring-2 ring-coral-700' : 'border-slate-200 hover:border-slate-300' }}">
                 <span class="text-sm text-slate-600">{{ $texto }}</span>
                 <span class="block font-display text-3xl font-bold {{ $color }}">{{ $totales[$clave] ?? 0 }}</span>
             </a>
@@ -36,7 +36,7 @@
             @foreach ($empresas as $empresa)
                 <article class="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col gap-4">
                     <div class="flex items-center gap-3">
-                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 font-bold text-blue-900">{{ $empresa->iniciales }}</span>
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-coral-100 font-bold text-coral-900">{{ $empresa->iniciales }}</span>
                         <div class="min-w-0">
                             <h2 class="font-semibold text-lg truncate">{{ $empresa->razon_social }}</h2>
                             <p class="text-sm text-slate-600">

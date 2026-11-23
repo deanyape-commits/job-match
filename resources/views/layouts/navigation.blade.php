@@ -32,7 +32,7 @@
                 <x-campanita />
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Menú de usuario">
+                        <button class="inline-flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-coral-500" aria-label="Menú de usuario">
                             <x-avatar :usuario="Auth::user()" class="h-10 w-10" />
                             <svg class="fill-current h-4 w-4 text-slate-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />

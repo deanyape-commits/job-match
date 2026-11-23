@@ -1,14 +1,14 @@
 @php
     $editando = $usuario->exists;
     $esYo = $editando && $usuario->is(Auth::user());
-    $claseCampo = 'block mt-1 w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-600 focus:ring-blue-600 disabled:bg-slate-100';
+    $claseCampo = 'block mt-1 w-full rounded-lg border-slate-300 shadow-sm focus:border-coral-600 focus:ring-coral-600 disabled:bg-slate-100';
 @endphp
 
 <x-app-layout>
     <x-slot name="titulo">{{ $editando ? 'Editar usuario' : 'Nuevo usuario' }}</x-slot>
 
     <x-slot name="header">
-        <a href="{{ route('admin.usuarios.index') }}" class="text-sm font-medium text-blue-700 hover:text-blue-900">← Usuarios</a>
+        <a href="{{ route('admin.usuarios.index') }}" class="text-sm font-medium text-coral-700 hover:text-coral-900">← Usuarios</a>
         <h1 class="mt-2 font-display text-3xl font-bold">{{ $editando ? 'Editar usuario' : 'Nuevo usuario' }}</h1>
         <p class="mt-1 text-slate-600">Desde aquí se crean los supervisores y administradores: no pueden registrarse por su cuenta.</p>
     </x-slot>
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <fieldset class="rounded-xl bg-slate-50 p-4">
+        <fieldset class="rounded-xl bg-crema p-4">
             <legend class="sr-only">Contraseña</legend>
             <p class="text-sm font-semibold">{{ $editando ? 'Cambiar contraseña (opcional)' : 'Contraseña' }}</p>
             @if ($editando)
@@ -88,13 +88,13 @@
         <label class="flex items-center gap-3">
             <input type="hidden" name="activo" value="0">
             <input type="checkbox" name="activo" value="1" @checked(old('activo', $usuario->activo ?? true)) @disabled($esYo)
-                   class="rounded border-slate-300 text-blue-700 focus:ring-blue-600">
+                   class="rounded border-slate-300 text-coral-700 focus:ring-coral-600">
             <span class="text-sm">Cuenta activa (puede iniciar sesión)</span>
             @if ($esYo) <input type="hidden" name="activo" value="1"> @endif
         </label>
 
         <div class="flex justify-end gap-3">
-            <a href="{{ route('admin.usuarios.index') }}" class="inline-flex items-center rounded-lg border border-slate-300 px-5 py-2.5 font-semibold hover:bg-slate-50">Cancelar</a>
+            <a href="{{ route('admin.usuarios.index') }}" class="inline-flex items-center rounded-lg border border-slate-300 px-5 py-2.5 font-semibold hover:bg-crema">Cancelar</a>
             <x-primary-button>{{ $editando ? 'Guardar cambios' : 'Crear usuario' }}</x-primary-button>
         </div>
     </form>

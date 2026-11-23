@@ -15,7 +15,7 @@
         @empty
             <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-600">
                 Aún no guardaste vacantes. Usa el ícono de marcador en el buscador.
-                <a href="{{ route('postulante.vacantes.index') }}" class="font-semibold text-blue-700 underline">Buscar empleos</a>
+                <a href="{{ route('postulante.vacantes.index') }}" class="font-semibold text-coral-700 underline">Buscar empleos</a>
             </div>
         @endforelse
 

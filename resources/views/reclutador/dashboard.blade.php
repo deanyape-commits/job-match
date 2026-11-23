@@ -10,7 +10,7 @@
                 </p>
             </div>
             @can('create', \App\Models\Vacante::class)
-                <a href="{{ route('reclutador.vacantes.create') }}" class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 font-semibold text-white hover:bg-blue-800">+ Publicar vacante</a>
+                <a href="{{ route('reclutador.vacantes.create') }}" class="inline-flex items-center rounded-lg bg-coral-700 px-5 py-2.5 font-semibold text-white hover:bg-coral-800">+ Publicar vacante</a>
             @endcan
         </div>
     </x-slot>
@@ -28,16 +28,16 @@
     {{-- Indicadores (procedimiento almacenado) --}}
     <div class="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(170px,1fr))]">
         @foreach ([
-            ['Vacantes publicadas', $reporte->vacantes_publicadas, $vacantesActivas.' activas ahora'],
-            ['Postulaciones', $reporte->total_postulaciones, 'en el periodo'],
-            ['Entrevistas realizadas', $reporte->entrevistas_realizadas, 'en el periodo'],
-            ['Contratados', $reporte->total_contratados, 'en el periodo'],
-            ['Match promedio', round($reporte->promedio_match).'%', 'de los postulantes'],
-        ] as [$etiqueta, $valor, $detalle])
-            <div class="rounded-xl border border-slate-200 bg-white p-5">
+            ['Vacantes publicadas', $reporte->vacantes_publicadas, '', $vacantesActivas.' activas ahora', 'border-t-coral-500'],
+            ['Postulaciones', $reporte->total_postulaciones, '', 'en el periodo', 'border-t-coral-500'],
+            ['Entrevistas realizadas', $reporte->entrevistas_realizadas, '', 'en el periodo', 'border-t-blue-600'],
+            ['Contratados', $reporte->total_contratados, '', 'en el periodo', 'border-t-teal-600'],
+            ['Match promedio', round($reporte->promedio_match), '%', 'de los postulantes', 'border-t-blue-600'],
+        ] as $i => [$etiqueta, $valor, $sufijo, $detalle, $borde])
+            <div class="rounded-xl border border-t-4 border-slate-200 {{ $borde }} bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md" data-revelar data-revelar-retraso="{{ $i * 70 }}">
                 <p class="text-sm text-slate-600">{{ $etiqueta }}</p>
-                <p class="font-display text-3xl font-bold">{{ $valor }}</p>
-                <p class="text-xs text-teal-700">{{ $detalle }}</p>
+                <p class="font-display text-3xl font-bold"><span data-contador="{{ $valor }}">{{ $valor }}</span>{{ $sufijo }}</p>
+                <p class="text-xs text-slate-600">{{ $detalle }}</p>
             </div>
         @endforeach
     </div>
@@ -47,10 +47,13 @@
             <h2 class="text-lg font-semibold">Postulaciones por mes</h2>
             <div role="img" aria-label="Postulaciones por mes: {{ $grafico->map(fn ($g) => $g['etiqueta'].' '.$g['total'])->implode(', ') }}"
                  class="mt-4 flex h-52 items-end gap-4 border-b border-slate-200">
-                @foreach ($grafico as $barra)
+                @foreach ($grafico as $i => $barra)
+                    @php $esMaximo = $barra['total'] === $maximoGrafico && $barra['total'] > 0; @endphp
                     <div class="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
                         <span class="text-xs font-semibold text-slate-700">{{ $barra['total'] }}</span>
-                        <span class="w-full max-w-12 rounded-t-md bg-blue-700" style="height: {{ round($barra['total'] / $maximoGrafico * 160) }}px"></span>
+                        {{-- Las barras crecen desde abajo, una detrás de otra --}}
+                        <span class="barra-animada w-full max-w-12 animate-crecer rounded-t-md {{ $esMaximo ? 'bg-coral-500' : 'bg-coral-200' }}"
+                              style="height: {{ round($barra['total'] / $maximoGrafico * 160) }}px; animation-delay: {{ $i * 90 }}ms"></span>
                     </div>
                 @endforeach
             </div>
@@ -65,9 +68,9 @@
             <h2 class="text-lg font-semibold">Entrevistas de esta semana</h2>
             @forelse ($entrevistas as $entrevista)
                 <div class="flex items-center gap-3 border-b border-slate-100 py-3 last:border-0">
-                    <div class="flex w-14 shrink-0 flex-col items-center rounded-lg bg-blue-50 py-1.5">
-                        <span class="text-[11px] font-semibold uppercase text-blue-800">{{ $entrevista->fecha_hora->translatedFormat('D') }}</span>
-                        <span class="text-lg font-bold text-blue-900">{{ $entrevista->fecha_hora->format('d') }}</span>
+                    <div class="flex w-14 shrink-0 flex-col items-center rounded-lg bg-coral-50 py-1.5">
+                        <span class="text-[11px] font-semibold uppercase text-coral-800">{{ $entrevista->fecha_hora->translatedFormat('D') }}</span>
+                        <span class="text-lg font-bold text-coral-900">{{ $entrevista->fecha_hora->format('d') }}</span>
                     </div>
                     <div class="min-w-0">
                         <p class="truncate text-sm font-semibold">{{ $entrevista->postulacion->perfilPostulante->usuario->nombre }}</p>
@@ -83,7 +86,7 @@
     <section class="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
         <div class="flex min-w-[720px] items-center justify-between px-6 pt-5 pb-2">
             <h2 class="text-lg font-semibold">Mis vacantes</h2>
-            <a href="{{ route('reclutador.vacantes.index') }}" class="text-sm font-semibold text-blue-700 hover:text-blue-900">Ver todas</a>
+            <a href="{{ route('reclutador.vacantes.index') }}" class="text-sm font-semibold text-coral-700 hover:text-coral-900">Ver todas</a>
         </div>
         @if ($vacantes->isEmpty())
             <p class="px-6 pb-6 text-sm text-slate-600">Aún no has creado vacantes.</p>

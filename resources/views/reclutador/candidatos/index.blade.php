@@ -6,7 +6,7 @@
     <x-slot name="titulo">Candidatos · {{ $vacante->titulo }}</x-slot>
 
     <x-slot name="header">
-        <a href="{{ route('reclutador.vacantes.index') }}" class="text-sm font-medium text-blue-700 hover:text-blue-900">← Mis vacantes</a>
+        <a href="{{ route('reclutador.vacantes.index') }}" class="text-sm font-medium text-coral-700 hover:text-coral-900">← Mis vacantes</a>
         <div class="mt-2 flex flex-wrap items-end justify-between gap-4">
             <div>
                 <h1 class="font-display text-3xl font-bold">{{ $vacante->titulo }}</h1>
@@ -16,7 +16,7 @@
                     <x-estado :valor="$vacante->estado" />
                 </p>
             </div>
-            <a href="{{ route('reclutador.vacantes.edit', $vacante) }}" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 font-medium hover:bg-slate-50">Editar vacante</a>
+            <a href="{{ route('reclutador.vacantes.edit', $vacante) }}" class="inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 font-medium hover:bg-crema">Editar vacante</a>
         </div>
     </x-slot>
 
@@ -41,7 +41,7 @@
                 <x-avatar :usuario="$perfil->usuario" class="h-12 w-12" />
 
                 <div class="min-w-0 flex-[1_1_260px] space-y-1.5">
-                    <a href="{{ route('reclutador.postulaciones.show', $postulacion) }}" class="text-lg font-semibold text-slate-900 hover:text-blue-700">{{ $perfil->usuario->nombre }}</a>
+                    <a href="{{ route('reclutador.postulaciones.show', $postulacion) }}" class="text-lg font-semibold text-slate-900 hover:text-coral-700">{{ $perfil->usuario->nombre }}</a>
                     <p class="text-sm text-slate-600">
                         {{ $perfil->titular ?? 'Sin titular' }}
                         @if ($perfil->ubicacion) · {{ $perfil->ubicacion->departamento }} @endif
@@ -63,9 +63,9 @@
                     @include('reclutador.candidatos._estado', ['confirmarContratado' => true])
                     <div class="flex gap-2">
                         @if ($perfil->cv_ruta)
-                            <a href="{{ route('cv.show', $perfil) }}" target="_blank" class="flex h-9 flex-1 items-center justify-center rounded-lg border border-slate-300 text-sm font-medium hover:bg-slate-50">Ver CV</a>
+                            <a href="{{ route('cv.show', $perfil) }}" target="_blank" class="flex h-9 flex-1 items-center justify-center rounded-lg border border-slate-300 text-sm font-medium hover:bg-crema">Ver CV</a>
                         @endif
-                        <a href="{{ route('reclutador.postulaciones.show', $postulacion) }}#agendar" class="flex h-9 flex-1 items-center justify-center rounded-lg bg-blue-700 text-sm font-semibold text-white hover:bg-blue-800">Entrevistar</a>
+                        <a href="{{ route('reclutador.postulaciones.show', $postulacion) }}#agendar" class="flex h-9 flex-1 items-center justify-center rounded-lg bg-coral-700 text-sm font-semibold text-white hover:bg-coral-800">Entrevistar</a>
                     </div>
                 </div>
             </article>

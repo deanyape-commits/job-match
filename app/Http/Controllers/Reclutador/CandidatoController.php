@@ -7,6 +7,7 @@ use App\Models\Postulacion;
 use App\Models\Vacante;
 use App\Notifications\EstadoPostulacionCambiado;
 use App\Services\Notificador;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -70,7 +71,7 @@ class CandidatoController extends Controller
      * Si pasa a "contratado", el trigger trg_actualizar_estado_vacante cierra la vacante
      * cuando se cubren todos los puestos, y trg_historial_postulacion registra el cambio.
      */
-    public function cambiarEstado(Request $request, Postulacion $postulacion, Notificador $notificador): RedirectResponse
+    public function cambiarEstado(Request $request, Postulacion $postulacion, Notificador $notificador): RedirectResponse|JsonResponse
     {
         Gate::authorize('gestionar', $postulacion);
 
@@ -82,7 +83,11 @@ class CandidatoController extends Controller
             $vacante = $postulacion->vacante;
             $contratados = $vacante->postulaciones()->where('estado', 'contratado')->count();
             if ($contratados >= $vacante->puestos) {
-                return back()->with('error', 'Ya se cubrieron todos los puestos de esta vacante.');
+                $error = 'Ya se cubrieron todos los puestos de esta vacante.';
+
+                return $request->expectsJson()
+                    ? response()->json(['mensaje' => $error], 422)
+                    : back()->with('error', $error);
             }
         }
 
@@ -96,8 +101,18 @@ class CandidatoController extends Controller
 
         $nombre = $postulacion->perfilPostulante->usuario->nombre;
         $mensaje = "Estado de {$nombre}: ".Postulacion::ESTADOS_TEXTO[$request->estado].'.';
-        if ($postulacion->vacante->fresh()->estado === 'cerrada' && $request->estado === 'contratado') {
+        $vacanteCerrada = $postulacion->vacante->fresh()->estado === 'cerrada' && $request->estado === 'contratado';
+        if ($vacanteCerrada) {
             $mensaje .= ' Se cubrieron todos los puestos: la vacante se cerró automáticamente.';
+        }
+
+        // Desde JavaScript (sin recargar la página) se responde en JSON
+        if ($request->expectsJson()) {
+            return response()->json([
+                'estado' => $request->estado,
+                'mensaje' => $mensaje,
+                'vacante_cerrada' => $vacanteCerrada,
+            ]);
         }
 
         return back()->with('exito', $mensaje);

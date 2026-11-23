@@ -20,8 +20,8 @@
         <ul class="divide-y divide-slate-100">
             @forelse ($notificaciones as $notificacion)
                 <li>
-                    <a href="{{ route('notificaciones.abrir', $notificacion->id) }}" class="flex gap-4 px-5 py-4 hover:bg-slate-50 {{ $notificacion->read_at ? '' : 'bg-blue-50/50' }}">
-                        <span aria-hidden="true" class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full {{ $notificacion->read_at ? 'bg-slate-200' : 'bg-blue-700' }}"></span>
+                    <a href="{{ route('notificaciones.abrir', $notificacion->id) }}" class="flex gap-4 px-5 py-4 hover:bg-crema {{ $notificacion->read_at ? '' : 'bg-coral-50/50' }}">
+                        <span aria-hidden="true" class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full {{ $notificacion->read_at ? 'bg-slate-200' : 'bg-coral-700' }}"></span>
                         <span class="min-w-0 flex-1">
                             <span class="block font-semibold">{{ $notificacion->data['titulo'] ?? 'Notificación' }}</span>
                             <span class="block text-slate-700">{{ $notificacion->data['mensaje'] ?? '' }}</span>

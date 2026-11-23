@@ -6,6 +6,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ isset($titulo) ? $titulo.' · ' : '' }}{{ config('app.name', 'JobMatch') }}</title>
+        <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
+        {{-- Marca que el JavaScript está activo antes de dibujar (evita parpadeos en las animaciones) --}}
+        <script>document.documentElement.classList.add('js')</script>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -14,7 +17,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased text-slate-900 bg-slate-50">
+    <body class="font-sans antialiased text-slate-900 bg-crema">
         @if (Auth::user()->tieneRol('postulante'))
             {{-- Postulante: barra de navegación superior --}}
             <div class="min-h-screen">

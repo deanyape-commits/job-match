@@ -21,16 +21,16 @@
     </div>
 
     @if ($proximaEntrevista)
-        <section aria-label="Próxima entrevista" class="mt-6 flex flex-wrap items-center justify-between gap-5 rounded-2xl bg-marino p-6 text-white">
+        <section aria-label="Próxima entrevista" class="mt-6 flex flex-wrap items-center justify-between gap-5 rounded-2xl bg-carbon p-6 text-white">
             <div class="space-y-1.5">
-                <p class="text-xs font-semibold uppercase tracking-wider text-blue-300">Próxima entrevista</p>
+                <p class="text-xs font-semibold uppercase tracking-wider text-coral-300">Próxima entrevista</p>
                 <p class="text-xl font-semibold">{{ $proximaEntrevista->postulacion->vacante->titulo }} · {{ $proximaEntrevista->postulacion->vacante->empresa->razon_social }}</p>
                 <p class="text-slate-300">
                     {{ ucfirst($proximaEntrevista->fecha_hora->translatedFormat('l j \d\e F, g:i a')) }} · {{ $proximaEntrevista->duracion_minutos }} minutos · Videollamada Jitsi
                 </p>
             </div>
             <a href="{{ $proximaEntrevista->enlace_reunion }}" target="_blank" rel="noopener"
-               class="flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-marino hover:bg-slate-100">
+               class="flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-carbon hover:bg-slate-100">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2" /><path d="m16 10 5-3v10l-5-3" /></svg>
                 Unirse a la videollamada
             </a>
@@ -40,7 +40,7 @@
     @if ($postulaciones->isEmpty())
         <div class="mt-6 rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-600">
             Todavía no postulaste a ninguna vacante.
-            <a href="{{ route('postulante.vacantes.index') }}" class="font-semibold text-blue-700 underline">Buscar empleos</a>
+            <a href="{{ route('postulante.vacantes.index') }}" class="font-semibold text-coral-700 underline">Buscar empleos</a>
         </div>
     @else
         <div class="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
@@ -59,7 +59,7 @@
                         @php $n = $etapa[$postulacion->estado]; $rechazado = $postulacion->estado === 'rechazado'; @endphp
                         <tr class="border-b border-slate-100 last:border-0">
                             <td class="px-5 py-4">
-                                <a href="{{ route('postulante.postulaciones.show', $postulacion) }}" class="font-semibold text-slate-900 hover:text-blue-700">{{ $postulacion->vacante->titulo }}</a>
+                                <a href="{{ route('postulante.postulaciones.show', $postulacion) }}" class="font-semibold text-slate-900 hover:text-coral-700">{{ $postulacion->vacante->titulo }}</a>
                                 <p class="text-sm text-slate-600">{{ $postulacion->vacante->empresa->razon_social }}</p>
                             </td>
                             <td class="px-5 py-4 text-slate-700">{{ $postulacion->created_at->translatedFormat('d M Y') }}</td>
@@ -68,7 +68,7 @@
                             <td class="px-5 py-4">
                                 <div class="flex gap-1" role="img" aria-label="{{ $rechazado ? 'Proceso finalizado' : "Etapa $n de 4" }}">
                                     @for ($i = 1; $i <= 4; $i++)
-                                        <span class="h-2 w-8 rounded-full {{ $rechazado ? 'bg-red-300' : ($i <= $n ? 'bg-blue-700' : 'bg-slate-200') }}"></span>
+                                        <span class="h-2 w-8 rounded-full {{ $rechazado ? 'bg-red-300' : ($i <= $n ? 'bg-coral-700' : 'bg-slate-200') }}"></span>
                                     @endfor
                                 </div>
                             </td>

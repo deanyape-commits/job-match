@@ -2,10 +2,10 @@
     $colorRol = [
         'administrador' => 'bg-red-100 text-red-800',
         'supervisor' => 'bg-amber-100 text-amber-800',
-        'reclutador' => 'bg-blue-100 text-blue-800',
+        'reclutador' => 'bg-coral-100 text-coral-800',
         'postulante' => 'bg-teal-100 text-teal-800',
     ];
-    $claseCampo = 'block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-600 focus:ring-blue-600';
+    $claseCampo = 'block w-full rounded-lg border-slate-300 shadow-sm focus:border-coral-600 focus:ring-coral-600';
 @endphp
 
 <x-app-layout>
@@ -17,7 +17,7 @@
                 <h1 class="font-display text-3xl font-bold">Usuarios</h1>
                 <p class="mt-1 text-slate-600">{{ number_format($total, 0, '.', ' ') }} usuarios registrados</p>
             </div>
-            <a href="{{ route('admin.usuarios.create') }}" class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 font-semibold text-white hover:bg-blue-800">+ Nuevo usuario</a>
+            <a href="{{ route('admin.usuarios.create') }}" class="inline-flex items-center rounded-lg bg-coral-700 px-5 py-2.5 font-semibold text-white hover:bg-coral-800">+ Nuevo usuario</a>
         </div>
     </x-slot>
 
@@ -85,7 +85,7 @@
                             </form>
                         </td>
                         <td class="px-5 py-3 text-right">
-                            <a href="{{ route('admin.usuarios.edit', $usuario) }}" class="font-semibold text-blue-700 hover:text-blue-900">Editar</a>
+                            <a href="{{ route('admin.usuarios.edit', $usuario) }}" class="font-semibold text-coral-700 hover:text-coral-900">Editar</a>
                         </td>
                     </tr>
                 @empty

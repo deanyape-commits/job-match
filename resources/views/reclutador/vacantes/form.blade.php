@@ -1,6 +1,6 @@
 @php
     $editando = $vacante->exists;
-    $claseSelect = 'block mt-1 w-full border-slate-300 focus:border-blue-600 focus:ring-blue-600 rounded-lg shadow-sm';
+    $claseSelect = 'block mt-1 w-full border-slate-300 focus:border-coral-600 focus:ring-coral-600 rounded-lg shadow-sm';
 
     // Habilidades ya elegidas: las del intento anterior (si hubo error) o las guardadas
     $seleccionadas = old('habilidades')
@@ -12,7 +12,7 @@
     <x-slot name="titulo">{{ $editando ? 'Editar vacante' : 'Publicar vacante' }}</x-slot>
 
     <x-slot name="header">
-        <a href="{{ route('reclutador.vacantes.index') }}" class="text-sm font-medium text-blue-700 hover:text-blue-900">← Mis vacantes</a>
+        <a href="{{ route('reclutador.vacantes.index') }}" class="text-sm font-medium text-coral-700 hover:text-coral-900">← Mis vacantes</a>
         <h1 class="mt-2 font-display text-3xl font-bold">{{ $editando ? 'Editar vacante' : 'Publicar nueva vacante' }}</h1>
         <p class="mt-1 text-slate-600">Las habilidades que marques se usan para calcular la compatibilidad de cada postulante.</p>
     </x-slot>
@@ -74,7 +74,7 @@
                     @foreach (\App\Models\Vacante::MODALIDADES as $valor => $texto)
                         <label class="cursor-pointer">
                             <input type="radio" name="modalidad" value="{{ $valor }}" class="peer sr-only" @checked(old('modalidad', $vacante->modalidad) === $valor)>
-                            <span class="inline-block rounded-lg border-2 border-slate-200 px-5 py-2.5 font-medium text-slate-700 peer-checked:border-blue-700 peer-checked:bg-blue-50 peer-checked:text-blue-900 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500">{{ $texto }}</span>
+                            <span class="inline-block rounded-lg border-2 border-slate-200 px-5 py-2.5 font-medium text-slate-700 peer-checked:border-coral-700 peer-checked:bg-coral-50 peer-checked:text-coral-900 peer-focus-visible:ring-2 peer-focus-visible:ring-coral-500">{{ $texto }}</span>
                         </label>
                     @endforeach
                 </div>
@@ -118,12 +118,12 @@
             <h2 class="text-lg font-semibold">2. Descripción</h2>
             <div>
                 <x-input-label for="descripcion" value="Descripción y funciones" />
-                <textarea id="descripcion" name="descripcion" rows="6" required class="block mt-1 w-full border-slate-300 focus:border-blue-600 focus:ring-blue-600 rounded-lg shadow-sm">{{ old('descripcion', $vacante->descripcion) }}</textarea>
+                <textarea id="descripcion" name="descripcion" rows="6" required class="block mt-1 w-full border-slate-300 focus:border-coral-600 focus:ring-coral-600 rounded-lg shadow-sm">{{ old('descripcion', $vacante->descripcion) }}</textarea>
                 <x-input-error :messages="$errors->get('descripcion')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="requisitos" value="Requisitos" />
-                <textarea id="requisitos" name="requisitos" rows="4" required class="block mt-1 w-full border-slate-300 focus:border-blue-600 focus:ring-blue-600 rounded-lg shadow-sm">{{ old('requisitos', $vacante->requisitos) }}</textarea>
+                <textarea id="requisitos" name="requisitos" rows="4" required class="block mt-1 w-full border-slate-300 focus:border-coral-600 focus:ring-coral-600 rounded-lg shadow-sm">{{ old('requisitos', $vacante->requisitos) }}</textarea>
                 <x-input-error :messages="$errors->get('requisitos')" class="mt-2" />
             </div>
         </section>
@@ -150,21 +150,21 @@
                 <input id="buscar-habilidad" type="text" x-model="busqueda" autocomplete="off"
                        @keydown.enter.prevent="if (sugerencias.length) agregar(sugerencias[0])"
                        placeholder="Escribe para agregar una habilidad (ej. Laravel)"
-                       class="block w-full border-slate-300 focus:border-blue-600 focus:ring-blue-600 rounded-lg shadow-sm">
+                       class="block w-full border-slate-300 focus:border-coral-600 focus:ring-coral-600 rounded-lg shadow-sm">
                 <ul x-show="sugerencias.length" x-cloak class="absolute z-10 mt-1 w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg">
                     <template x-for="h in sugerencias" :key="h.id">
-                        <li><button type="button" @click="agregar(h)" class="block w-full px-4 py-2 text-left hover:bg-slate-50" x-text="h.nombre"></button></li>
+                        <li><button type="button" @click="agregar(h)" class="block w-full px-4 py-2 text-left hover:bg-crema" x-text="h.nombre"></button></li>
                     </template>
                 </ul>
             </div>
 
             <ul class="space-y-2">
                 <template x-for="s in sel" :key="s.id">
-                    <li class="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-slate-50 px-4 py-2.5">
+                    <li class="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-crema px-4 py-2.5">
                         <span class="font-semibold" x-text="nombre(s.id)"></span>
                         <span class="flex items-center gap-2">
                             <button type="button" @click="s.obligatoria = !s.obligatoria"
-                                    :class="s.obligatoria ? 'bg-blue-700 text-white border-blue-700' : 'bg-white text-slate-700 border-slate-300'"
+                                    :class="s.obligatoria ? 'bg-coral-700 text-white border-coral-700' : 'bg-white text-slate-700 border-slate-300'"
                                     class="rounded-full border px-3 py-1.5 text-xs font-semibold"
                                     x-text="s.obligatoria ? 'Obligatoria' : 'Deseable'"></button>
                             <button type="button" @click="quitar(s.id)" class="h-9 w-9 rounded-lg text-xl text-slate-500 hover:bg-slate-200" :aria-label="'Quitar ' + nombre(s.id)">×</button>

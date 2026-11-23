@@ -13,13 +13,13 @@
             <legend class="block font-medium text-sm text-gray-700">¿Cómo quieres usar JobMatch?</legend>
             <div class="mt-2 grid grid-cols-2 gap-3">
                 <label class="cursor-pointer rounded-lg border-2 p-3 transition"
-                       :class="tipo === 'postulante' ? 'border-blue-600 bg-blue-50' : 'border-gray-200'">
+                       :class="tipo === 'postulante' ? 'border-coral-600 bg-coral-50' : 'border-gray-200'">
                     <input type="radio" name="tipo_cuenta" value="postulante" x-model="tipo" class="sr-only">
                     <span class="block font-semibold text-gray-900">Busco empleo</span>
                     <span class="block text-xs text-gray-600">Cuenta de postulante</span>
                 </label>
                 <label class="cursor-pointer rounded-lg border-2 p-3 transition"
-                       :class="tipo === 'reclutador' ? 'border-blue-600 bg-blue-50' : 'border-gray-200'">
+                       :class="tipo === 'reclutador' ? 'border-coral-600 bg-coral-50' : 'border-gray-200'">
                     <input type="radio" name="tipo_cuenta" value="reclutador" x-model="tipo" class="sr-only">
                     <span class="block font-semibold text-gray-900">Busco talento</span>
                     <span class="block text-xs text-gray-600">Cuenta de reclutador</span>
@@ -52,7 +52,7 @@
                 <div>
                     <x-input-label for="ubicacion_id" value="Ubicación" />
                     <select id="ubicacion_id" name="ubicacion_id" x-bind:required="tipo === 'reclutador'"
-                            class="block mt-1 w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
+                            class="block mt-1 w-full border-gray-300 focus:border-coral-500 focus:ring-coral-500 rounded-md shadow-sm">
                         <option value="">Selecciona…</option>
                         @foreach ($ubicaciones as $ubicacion)
                             <option value="{{ $ubicacion->id }}" @selected(old('ubicacion_id') == $ubicacion->id)>
@@ -102,7 +102,7 @@
         <x-primary-button class="mt-6 w-full py-3 text-base">Crear cuenta</x-primary-button>
 
         <p class="mt-4 text-center text-sm text-slate-600">
-            ¿Ya tienes cuenta? <a href="{{ route('login') }}" class="font-semibold text-blue-700 hover:text-blue-900">Iniciar sesión</a>
+            ¿Ya tienes cuenta? <a href="{{ route('login') }}" class="font-semibold text-coral-700 hover:text-coral-900">Iniciar sesión</a>
         </p>
     </form>
 </x-guest-layout>

@@ -11,7 +11,7 @@
 <x-app-layout>
     <x-slot name="titulo">Mi postulación</x-slot>
 
-    <a href="{{ route('postulante.postulaciones.index') }}" class="text-sm font-medium text-blue-700 hover:text-blue-900">← Mis postulaciones</a>
+    <a href="{{ route('postulante.postulaciones.index') }}" class="text-sm font-medium text-coral-700 hover:text-coral-900">← Mis postulaciones</a>
 
     <div class="mt-4 flex flex-wrap items-start gap-7">
         <main class="min-w-0 flex-[999_1_560px] space-y-5">
@@ -25,7 +25,7 @@
                 </div>
                 <p class="mt-4 flex items-center gap-2 text-sm text-slate-700">Estado actual: <x-estado :valor="$postulacion->estado" /></p>
                 @unless ($postulacion->vacante->trashed())
-                    <a href="{{ route('postulante.vacantes.show', $postulacion->vacante) }}" class="mt-3 inline-block text-sm font-semibold text-blue-700 hover:text-blue-900">Ver la vacante</a>
+                    <a href="{{ route('postulante.vacantes.show', $postulacion->vacante) }}" class="mt-3 inline-block text-sm font-semibold text-coral-700 hover:text-coral-900">Ver la vacante</a>
                 @endunless
             </section>
 
@@ -38,7 +38,7 @@
                             @unless ($loop->last)
                                 <span aria-hidden="true" class="absolute left-[7px] top-5 h-full w-0.5 bg-slate-200"></span>
                             @endunless
-                            <span aria-hidden="true" class="relative mt-1 h-4 w-4 shrink-0 rounded-full border-4 border-white {{ $loop->last ? 'bg-blue-700 ring-2 ring-blue-200' : 'bg-slate-400' }}"></span>
+                            <span aria-hidden="true" class="relative mt-1 h-4 w-4 shrink-0 rounded-full border-4 border-white {{ $loop->last ? 'bg-coral-700 ring-2 ring-coral-200' : 'bg-slate-400' }}"></span>
                             <div>
                                 <p class="font-semibold">{{ $textos[$evento->estado_nuevo] ?? $evento->estado_nuevo }}</p>
                                 <p class="text-sm text-slate-600">{{ $evento->cambiado_en->translatedFormat('d M Y, g:i a') }}</p>
@@ -60,7 +60,7 @@
                         </div>
                         <p class="text-sm text-slate-600">{{ $entrevista->fecha_hora->format('g:i a') }} · {{ $entrevista->duracion_minutos }} minutos</p>
                         @if ($entrevista->estado === 'programada')
-                            <a href="{{ $entrevista->enlace_reunion }}" target="_blank" rel="noopener" class="flex h-11 items-center justify-center rounded-lg bg-blue-700 font-semibold text-white hover:bg-blue-800">Unirse a la videollamada</a>
+                            <a href="{{ $entrevista->enlace_reunion }}" target="_blank" rel="noopener" class="flex h-11 items-center justify-center rounded-lg bg-coral-700 font-semibold text-white hover:bg-coral-800">Unirse a la videollamada</a>
                         @endif
                     </div>
                 @empty

@@ -26,18 +26,18 @@
 
         <div class="flex items-center justify-between text-sm">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-slate-300 text-blue-700 shadow-sm focus:ring-blue-600" name="remember">
+                <input id="remember_me" type="checkbox" class="rounded border-slate-300 text-coral-700 shadow-sm focus:ring-coral-600" name="remember">
                 <span class="ms-2 text-slate-700">{{ __('Remember me') }}</span>
             </label>
             @if (Route::has('password.request'))
-                <a class="text-blue-700 hover:text-blue-900" href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
+                <a class="text-coral-700 hover:text-coral-900" href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
             @endif
         </div>
 
         <x-primary-button class="w-full py-3 text-base">{{ __('Log in') }}</x-primary-button>
 
         <p class="text-center text-sm text-slate-600">
-            ¿No tienes cuenta? <a href="{{ route('register') }}" class="font-semibold text-blue-700 hover:text-blue-900">Crear cuenta</a>
+            ¿No tienes cuenta? <a href="{{ route('register') }}" class="font-semibold text-coral-700 hover:text-coral-900">Crear cuenta</a>
         </p>
     </form>
 </x-guest-layout>

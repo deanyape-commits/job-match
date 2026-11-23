@@ -1,5 +1,5 @@
 @php
-    $claseCampo = 'block mt-1 w-full border-slate-300 focus:border-blue-600 focus:ring-blue-600 rounded-lg shadow-sm';
+    $claseCampo = 'block mt-1 w-full border-slate-300 focus:border-coral-600 focus:ring-coral-600 rounded-lg shadow-sm';
     $habilidadesActuales = old('habilidades')
         ? collect(old('habilidades'))->map(fn ($nivel, $id) => ['id' => (int) $id, 'nivel' => (int) $nivel])->values()
         : $perfil->habilidades->map(fn ($h) => ['id' => $h->id, 'nivel' => (int) $h->pivot->nivel])->values();
@@ -18,7 +18,7 @@
             <div class="w-full max-w-xs">
                 <p class="flex justify-between text-sm"><span class="text-slate-600">Perfil completo</span><strong>{{ $completitud['porcentaje'] }}%</strong></p>
                 <div class="mt-1.5 h-2.5 rounded-full bg-slate-200" role="progressbar" aria-valuenow="{{ $completitud['porcentaje'] }}" aria-valuemin="0" aria-valuemax="100" aria-label="Perfil completo">
-                    <div class="h-full rounded-full {{ $completitud['porcentaje'] === 100 ? 'bg-teal-600' : 'bg-blue-700' }}" style="width: {{ $completitud['porcentaje'] }}%"></div>
+                    <div class="h-full rounded-full {{ $completitud['porcentaje'] === 100 ? 'bg-teal-600' : 'bg-coral-700' }}" style="width: {{ $completitud['porcentaje'] }}%"></div>
                 </div>
             </div>
         </div>
@@ -87,16 +87,16 @@
                 </div>
             </div>
 
-            <div class="rounded-xl bg-slate-50 p-4">
+            <div class="rounded-xl bg-crema p-4">
                 <x-input-label for="cv" value="CV en PDF (máx. 2 MB)" />
                 @if ($perfil->cv_ruta)
                     <p class="mt-1 text-sm text-slate-700">
-                        Ya subiste tu CV. <a href="{{ route('cv.show', $perfil) }}" target="_blank" class="font-semibold text-blue-700 underline">Ver mi CV</a>.
+                        Ya subiste tu CV. <a href="{{ route('cv.show', $perfil) }}" target="_blank" class="font-semibold text-coral-700 underline">Ver mi CV</a>.
                         Si eliges otro archivo, reemplazará al actual.
                     </p>
                 @endif
                 <input id="cv" name="cv" type="file" accept="application/pdf"
-                       class="mt-2 block w-full text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-blue-700 file:px-4 file:py-2 file:font-semibold file:text-white hover:file:bg-blue-800">
+                       class="mt-2 block w-full text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-coral-700 file:px-4 file:py-2 file:font-semibold file:text-white hover:file:bg-coral-800">
                 <x-input-error :messages="$errors->get('cv')" class="mt-2" />
             </div>
 
@@ -134,19 +134,19 @@
                        placeholder="Escribe para agregar (ej. Laravel, SQL, Inglés…)" class="{{ $claseCampo }} mt-0">
                 <ul x-show="sugerencias.length" x-cloak class="absolute z-10 mt-1 w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg">
                     <template x-for="h in sugerencias" :key="h.id">
-                        <li><button type="button" @click="agregar(h)" class="block w-full px-4 py-2 text-left hover:bg-slate-50" x-text="h.nombre"></button></li>
+                        <li><button type="button" @click="agregar(h)" class="block w-full px-4 py-2 text-left hover:bg-crema" x-text="h.nombre"></button></li>
                     </template>
                 </ul>
             </div>
 
             <ul class="grid gap-2 sm:grid-cols-2">
                 <template x-for="s in sel" :key="s.id">
-                    <li class="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-4 py-2">
+                    <li class="flex items-center justify-between gap-3 rounded-lg bg-crema px-4 py-2">
                         <span class="font-semibold" x-text="nombre(s.id)"></span>
                         <span class="flex items-center gap-1">
                             <label class="sr-only" :for="'nivel-' + s.id" x-text="'Nivel de ' + nombre(s.id)"></label>
                             <select :id="'nivel-' + s.id" :name="`habilidades[${s.id}]`" x-model.number="s.nivel"
-                                    class="rounded-lg border-slate-300 py-1 text-sm focus:border-blue-600 focus:ring-blue-600">
+                                    class="rounded-lg border-slate-300 py-1 text-sm focus:border-coral-600 focus:ring-coral-600">
                                 <option value="1">1 · Básico</option>
                                 <option value="2">2</option>
                                 <option value="3">3 · Intermedio</option>
@@ -173,7 +173,7 @@
                 <x-secondary-button @click="abierto = !abierto" x-text="abierto ? 'Cancelar' : '+ Agregar'">+ Agregar</x-secondary-button>
             </div>
 
-            <form x-show="abierto" x-cloak method="POST" action="{{ route('postulante.perfil.experiencias.store') }}" class="grid gap-4 rounded-xl bg-slate-50 p-4 sm:grid-cols-2">
+            <form x-show="abierto" x-cloak method="POST" action="{{ route('postulante.perfil.experiencias.store') }}" class="grid gap-4 rounded-xl bg-crema p-4 sm:grid-cols-2">
                 @csrf
                 <div>
                     <x-input-label for="exp_cargo" value="Cargo" />
@@ -231,7 +231,7 @@
                 <x-secondary-button @click="abierto = !abierto" x-text="abierto ? 'Cancelar' : '+ Agregar'">+ Agregar</x-secondary-button>
             </div>
 
-            <form x-show="abierto" x-cloak method="POST" action="{{ route('postulante.perfil.estudios.store') }}" class="grid gap-4 rounded-xl bg-slate-50 p-4 sm:grid-cols-2">
+            <form x-show="abierto" x-cloak method="POST" action="{{ route('postulante.perfil.estudios.store') }}" class="grid gap-4 rounded-xl bg-crema p-4 sm:grid-cols-2">
                 @csrf
                 <div>
                     <x-input-label for="est_inst" value="Institución" />

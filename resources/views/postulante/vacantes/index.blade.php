@@ -1,5 +1,5 @@
 @php
-    $claseSelect = 'block w-full border-slate-300 focus:border-blue-600 focus:ring-blue-600 rounded-lg shadow-sm';
+    $claseSelect = 'block w-full border-slate-300 focus:border-coral-600 focus:ring-coral-600 rounded-lg shadow-sm';
     $marcado = fn (string $campo, string $valor) => in_array($valor, $filtros[$campo] ?? [], true);
 @endphp
 
@@ -9,10 +9,11 @@
     {{-- Barra de búsqueda --}}
     <form method="GET" action="{{ route('postulante.vacantes.index') }}" id="form-busqueda"
           class="mb-6 flex flex-wrap gap-3 rounded-2xl border border-slate-200 bg-white p-4">
-        <label class="flex-[2_1_280px]">
-            <span class="mb-1 block text-xs font-medium text-slate-700">Puesto, empresa o habilidad</span>
-            <x-text-input name="q" :value="$filtros['q'] ?? ''" class="w-full" placeholder="Ej.: Laravel, Analista de datos…" />
-        </label>
+        <div class="flex-[2_1_280px]">
+            <label for="busqueda" class="mb-1 block text-xs font-medium text-slate-700">Puesto, empresa o habilidad</label>
+            <x-buscador-sugerencias :valor="$filtros['q'] ?? ''" placeholder="Ej.: Laravel, Analista de datos…"
+                input-class="block w-full rounded-lg border-slate-300 shadow-sm focus:border-coral-600 focus:ring-coral-600" />
+        </div>
         <label class="flex-[1_1_180px]">
             <span class="mb-1 block text-xs font-medium text-slate-700">Departamento</span>
             <select name="departamento" class="{{ $claseSelect }}">
@@ -38,7 +39,7 @@
         <aside aria-label="Filtros" class="flex-[1_1_240px] lg:max-w-[280px] space-y-5 rounded-2xl border border-slate-200 bg-white p-5">
             <div class="flex items-center justify-between">
                 <h2 class="font-semibold">Filtros</h2>
-                <a href="{{ route('postulante.vacantes.index') }}" class="text-sm text-blue-700 hover:text-blue-900">Limpiar</a>
+                <a href="{{ route('postulante.vacantes.index') }}" class="text-sm text-coral-700 hover:text-coral-900">Limpiar</a>
             </div>
 
             @foreach ([
@@ -51,7 +52,7 @@
                     @foreach ($opciones as $valor => $texto)
                         <label class="flex items-center gap-2 text-sm text-slate-700">
                             <input type="checkbox" form="form-busqueda" name="{{ $campo }}[]" value="{{ $valor }}" @checked($marcado($campo, $valor))
-                                   class="rounded border-slate-300 text-blue-700 focus:ring-blue-600">
+                                   class="rounded border-slate-300 text-coral-700 focus:ring-coral-600">
                             {{ $texto }}
                         </label>
                     @endforeach
@@ -81,7 +82,7 @@
                     @if (! empty($filtros['q'])) para "{{ $filtros['q'] }}" @endif
                 </p>
                 <label class="flex items-center gap-2 text-sm text-slate-700">Ordenar por
-                    <select name="orden" form="form-busqueda" onchange="this.form.submit()" class="rounded-lg border-slate-300 text-sm focus:border-blue-600 focus:ring-blue-600">
+                    <select name="orden" form="form-busqueda" onchange="this.form.submit()" class="rounded-lg border-slate-300 text-sm focus:border-coral-600 focus:ring-coral-600">
                         <option value="match" @selected($orden === 'match')>Mayor compatibilidad</option>
                         <option value="recientes" @selected($orden === 'recientes')>Más recientes</option>
                         <option value="salario" @selected($orden === 'salario')>Mayor salario</option>

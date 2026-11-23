@@ -7,12 +7,16 @@ use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\Postulante;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SugerenciaController;
 use App\Http\Controllers\Reclutador;
 use App\Http\Controllers\Supervisor;
 use Illuminate\Support\Facades\Route;
 
 // Página de inicio pública
 Route::get('/', InicioController::class)->name('inicio');
+
+// Sugerencias del buscador mientras se escribe (JSON). Límite: 60 consultas por minuto.
+Route::get('/sugerencias', SugerenciaController::class)->middleware('throttle:60,1')->name('sugerencias');
 
 // Breeze redirige a "dashboard" después del login/registro.
 // Esta ruta envía a cada usuario al panel de su rol.
@@ -54,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
     // Notificaciones (todos los roles)
     Route::get('notificaciones', [NotificacionController::class, 'index'])->name('notificaciones.index');
+    Route::get('notificaciones/resumen', [NotificacionController::class, 'resumen'])->name('notificaciones.resumen');
     Route::get('notificaciones/{id}', [NotificacionController::class, 'abrir'])->name('notificaciones.abrir');
     Route::post('notificaciones/leer-todas', [NotificacionController::class, 'leerTodas'])->name('notificaciones.leer-todas');
 

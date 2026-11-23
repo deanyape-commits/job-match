@@ -44,7 +44,7 @@
                     @endforeach
                 </ul>
                 @if ($enlace)
-                    <a href="{{ $enlace }}" class="mt-4 inline-block text-sm font-semibold text-blue-700 hover:text-blue-900">Validar empresas →</a>
+                    <a href="{{ $enlace }}" class="mt-4 inline-block text-sm font-semibold text-coral-700 hover:text-coral-900">Validar empresas →</a>
                 @endif
             </section>
         @endforeach
@@ -53,7 +53,7 @@
     <section class="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
         <div class="flex items-center justify-between">
             <h2 class="text-lg font-semibold">Últimos registros</h2>
-            <a href="{{ route('admin.usuarios.index') }}" class="text-sm font-semibold text-blue-700 hover:text-blue-900">Ver todos</a>
+            <a href="{{ route('admin.usuarios.index') }}" class="text-sm font-semibold text-coral-700 hover:text-coral-900">Ver todos</a>
         </div>
         <ul class="mt-3 divide-y divide-slate-100">
             @foreach ($ultimosUsuarios as $usuario)

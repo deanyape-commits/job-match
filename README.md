@@ -114,6 +114,14 @@ resources/views/  ← vistas Blade por rol
 docs/             ← modelo de datos y resumen para el informe
 ```
 
+## Imágenes
+
+Fotografías de [Unsplash](https://unsplash.com) bajo la Licencia Unsplash (uso gratuito):
+
+- Portada: *Team collaborating around a computer in an office*
+- Login y registro: *Six colleagues collaborating around a conference table with laptops*
+- Sección para empresas: *Two professionals shaking hands across a table*
+
 ## Documentación
 
 - [`docs/modelo-de-datos.md`](docs/modelo-de-datos.md): MER, diccionario de datos y de relaciones

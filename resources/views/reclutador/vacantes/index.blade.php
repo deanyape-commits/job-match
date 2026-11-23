@@ -8,7 +8,7 @@
                 <p class="mt-1 text-slate-600">Todas las vacantes de {{ Auth::user()->empresa->razon_social }}.</p>
             </div>
             @if ($puedePublicar)
-                <a href="{{ route('reclutador.vacantes.create') }}" class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 font-semibold text-white hover:bg-blue-800">+ Publicar vacante</a>
+                <a href="{{ route('reclutador.vacantes.create') }}" class="inline-flex items-center rounded-lg bg-coral-700 px-5 py-2.5 font-semibold text-white hover:bg-coral-800">+ Publicar vacante</a>
             @endif
         </div>
     </x-slot>
@@ -59,7 +59,7 @@
                             <td class="px-5 py-4">
                                 <div class="flex items-center justify-end gap-3 whitespace-nowrap">
                                     @if (Route::has('reclutador.vacantes.candidatos') && $vacante->estado !== 'borrador')
-                                        <a href="{{ route('reclutador.vacantes.candidatos', $vacante) }}" class="font-semibold text-blue-700 hover:text-blue-900">Candidatos</a>
+                                        <a href="{{ route('reclutador.vacantes.candidatos', $vacante) }}" class="font-semibold text-coral-700 hover:text-coral-900">Candidatos</a>
                                     @endif
                                     <a href="{{ route('reclutador.vacantes.edit', $vacante) }}" class="font-semibold text-slate-700 hover:text-slate-900">Editar</a>
                                     @if ($vacante->estado === 'publicada')

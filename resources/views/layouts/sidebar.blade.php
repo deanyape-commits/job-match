@@ -26,18 +26,17 @@
     };
 @endphp
 
-<aside class="flex-[1_1_240px] lg:max-w-[260px] bg-slate-900 text-slate-200 px-4 py-6 flex flex-col gap-6">
+<aside class="flex-[1_1_240px] lg:max-w-[260px] bg-carbon-900 text-slate-200 px-4 py-6 flex flex-col gap-6">
     <div class="flex items-center justify-between gap-3 px-2">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 text-white">
-            <span class="flex h-9 w-9 items-center justify-center rounded-[10px] bg-blue-700 font-display text-lg font-bold">J</span>
-            <span class="font-display text-xl font-bold">JobMatch</span>
+        <a href="{{ route('dashboard') }}" aria-label="JobMatch, ir a mi panel">
+            <x-application-logo oscuro />
         </a>
         <x-campanita oscuro />
     </div>
 
     @if ($usuario->tieneRol('reclutador') && $usuario->empresa)
-        <div class="rounded-xl bg-slate-800 p-3 flex items-center gap-3">
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 font-bold text-blue-900">
+        <div class="rounded-xl bg-carbon p-3 flex items-center gap-3">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-coral-100 font-bold text-coral-900">
                 {{ $usuario->empresa->iniciales }}
             </span>
             <div class="min-w-0">
@@ -58,14 +57,14 @@
             @if (Route::has($ruta))
                 @php $activo = request()->routeIs($patron); @endphp
                 <a href="{{ route($ruta) }}" @if ($activo) aria-current="page" @endif
-                   class="rounded-lg px-3 py-2.5 {{ $activo ? 'bg-slate-800 font-semibold text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                   class="rounded-lg px-3 py-2.5 {{ $activo ? 'bg-carbon font-semibold text-white' : 'text-slate-300 hover:bg-carbon hover:text-white' }}">
                     {{ $texto }}
                 </a>
             @endif
         @endforeach
     </nav>
 
-    <div class="mt-auto border-t border-slate-800 pt-4 px-2 text-sm">
+    <div class="mt-auto border-t border-carbon pt-4 px-2 text-sm">
         <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-lg hover:opacity-90">
             <x-avatar :usuario="$usuario" class="h-10 w-10" color="bg-slate-700 text-white" />
             <span class="min-w-0">

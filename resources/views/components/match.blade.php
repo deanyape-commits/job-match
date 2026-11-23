@@ -5,7 +5,7 @@
     $valor = (int) round((float) $porcentaje);
     $color = match (true) {
         $valor >= 80 => 'text-teal-700',
-        $valor >= 50 => 'text-amber-700',
+        $valor >= 50 => 'text-blue-700',
         default => 'text-slate-600',
     };
 @endphp

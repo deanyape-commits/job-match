@@ -111,8 +111,13 @@ class NotificacionesTest extends TestCase
         $postulante->notifyNow(new EstadoPostulacionCambiado($postulacion), ['database']);
 
         $this->actingAs($postulante)->get(route('postulante.vacantes.index'))
-            ->assertSee('1 sin leer')
-            ->assertSee('La empresa está revisando tu perfil');
+            ->assertSee('1 sin leer');
+
+        // La campanita consulta este resumen cada 30 segundos
+        $this->actingAs($postulante)->getJson(route('notificaciones.resumen'))
+            ->assertOk()
+            ->assertJsonPath('sin_leer', 1)
+            ->assertJsonPath('items.0.mensaje', 'La empresa está revisando tu perfil.');
 
         $notificacion = $postulante->notifications()->first();
         $this->actingAs($postulante)->get(route('notificaciones.abrir', $notificacion->id))

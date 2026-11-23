@@ -8,7 +8,7 @@
         {{-- Vista previa: la foto elegida, la actual o las iniciales --}}
         <div class="relative">
             <template x-if="vista">
-                <img :src="vista" alt="Vista previa de la nueva foto" class="h-24 w-24 rounded-full object-cover ring-4 ring-blue-100">
+                <img :src="vista" alt="Vista previa de la nueva foto" class="h-24 w-24 rounded-full object-cover ring-4 ring-coral-100">
             </template>
             <div x-show="!vista">
                 <x-avatar :usuario="$user" class="h-24 w-24 text-3xl" />

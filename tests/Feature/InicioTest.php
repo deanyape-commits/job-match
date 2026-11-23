@@ -18,7 +18,9 @@ class InicioTest extends TestCase
 
         $this->get('/')
             ->assertOk()
-            ->assertSee('Encuentra el trabajo que coincide con tus habilidades')
+            ->assertSee('Encuentra el trabajo que coincide con')
+            ->assertSee('img/logo-negro.png')
+            ->assertSee('Empresas verificadas que publican en JobMatch')
             ->assertSee('Vacante Reciente Visible')
             ->assertDontSee('Borrador Oculto')
             ->assertSee('Crear cuenta');

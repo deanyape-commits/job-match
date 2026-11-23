@@ -8,6 +8,7 @@ use App\Models\Ubicacion;
 use App\Models\Vacante;
 use App\Services\MatchingService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -97,13 +98,18 @@ class VacanteController extends Controller
     }
 
     /** Guarda o quita la vacante de favoritos (tabla pivote vacantes_guardadas). */
-    public function guardar(Request $request, Vacante $vacante): RedirectResponse
+    public function guardar(Request $request, Vacante $vacante): RedirectResponse|JsonResponse
     {
         $resultado = $request->user()->perfil()->vacantesGuardadas()->toggle($vacante->id);
+        $guardada = ! empty($resultado['attached']);
+        $mensaje = $guardada ? 'Vacante guardada en tus favoritos.' : 'Vacante quitada de tus favoritos.';
 
-        return back()->with('exito', $resultado['attached']
-            ? 'Vacante guardada en tus favoritos.'
-            : 'Vacante quitada de tus favoritos.');
+        // Desde JavaScript (sin recargar la página) se responde en JSON
+        if ($request->expectsJson()) {
+            return response()->json(['guardada' => $guardada, 'mensaje' => $mensaje]);
+        }
+
+        return back()->with('exito', $mensaje);
     }
 
     /** Vacantes publicadas de empresas verificadas. */

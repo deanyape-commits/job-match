@@ -12,7 +12,7 @@
         @if ($user->tieneRol('postulante'))
             <p class="mt-3 text-sm text-slate-600">
                 Tu experiencia, estudios, CV y habilidades se editan en
-                <a href="{{ route('postulante.perfil.edit') }}" class="font-semibold text-blue-700 underline">Mi perfil profesional</a>.
+                <a href="{{ route('postulante.perfil.edit') }}" class="font-semibold text-coral-700 underline">Mi perfil profesional</a>.
             </p>
         @endif
     </x-slot>
