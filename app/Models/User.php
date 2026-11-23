@@ -25,6 +25,14 @@ class User extends Authenticatable
     protected $table = 'usuarios';
 
     /**
+     * Valores por defecto en memoria (iguales a los de la migración),
+     * para que un usuario recién creado ya tenga activo = true.
+     */
+    protected $attributes = [
+        'activo' => true,
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
@@ -100,5 +108,16 @@ class User extends Authenticatable
     public function tieneRol(string ...$slugs): bool
     {
         return in_array($this->rol?->slug, $slugs, true);
+    }
+
+    /** Nombre de la ruta del panel principal según el rol del usuario. */
+    public function rutaInicio(): string
+    {
+        return match ($this->rol?->slug) {
+            Rol::ADMINISTRADOR => 'admin.inicio',
+            Rol::SUPERVISOR => 'supervisor.inicio',
+            Rol::RECLUTADOR => 'reclutador.inicio',
+            default => 'postulante.inicio',
+        };
     }
 }

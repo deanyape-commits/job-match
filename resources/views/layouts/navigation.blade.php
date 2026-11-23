@@ -12,9 +12,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route(Auth::user()->rutaInicio())" :active="request()->routeIs(Auth::user()->rutaInicio())">
+                        Mi panel
                     </x-nav-link>
+                    @if (Auth::user()->tieneRol('administrador'))
+                        <x-nav-link :href="route('supervisor.inicio')" :active="request()->routeIs('supervisor.*')">
+                            Supervisión
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -24,6 +29,7 @@
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->nombre }}</div>
+                            <span class="ms-2 rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-semibold text-indigo-700">{{ Auth::user()->rol?->nombre }}</span>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -35,7 +41,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            Mi cuenta
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -45,7 +51,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                Cerrar sesión
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -67,9 +73,14 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route(Auth::user()->rutaInicio())" :active="request()->routeIs(Auth::user()->rutaInicio())">
+                Mi panel
             </x-responsive-nav-link>
+            @if (Auth::user()->tieneRol('administrador'))
+                <x-responsive-nav-link :href="route('supervisor.inicio')" :active="request()->routeIs('supervisor.*')">
+                    Supervisión
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -81,7 +92,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    Mi cuenta
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -91,7 +102,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        Cerrar sesión
                     </x-responsive-nav-link>
                 </form>
             </div>

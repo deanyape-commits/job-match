@@ -11,7 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Alias para usar en las rutas: ->middleware('rol:reclutador')
+        $middleware->alias([
+            'rol' => \App\Http\Middleware\VerificarRol::class,
+        ]);
+
+        // Se ejecuta en todas las páginas web
+        $middleware->web(append: [
+            \App\Http\Middleware\VerificarUsuarioActivo::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -1,24 +1,79 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    {{-- x-data (Alpine.js, viene con Breeze): muestra los campos de empresa solo si se elige "Busco talento" --}}
+    <form method="POST" action="{{ route('register') }}" x-data="{ tipo: '{{ old('tipo_cuenta', 'postulante') }}' }">
         @csrf
 
-        <!-- Name -->
-        <div>
+        <!-- Tipo de cuenta -->
+        <fieldset>
+            <legend class="block font-medium text-sm text-gray-700">¿Cómo quieres usar JobMatch?</legend>
+            <div class="mt-2 grid grid-cols-2 gap-3">
+                <label class="cursor-pointer rounded-lg border-2 p-3 transition"
+                       :class="tipo === 'postulante' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200'">
+                    <input type="radio" name="tipo_cuenta" value="postulante" x-model="tipo" class="sr-only">
+                    <span class="block font-semibold text-gray-900">Busco empleo</span>
+                    <span class="block text-xs text-gray-600">Cuenta de postulante</span>
+                </label>
+                <label class="cursor-pointer rounded-lg border-2 p-3 transition"
+                       :class="tipo === 'reclutador' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200'">
+                    <input type="radio" name="tipo_cuenta" value="reclutador" x-model="tipo" class="sr-only">
+                    <span class="block font-semibold text-gray-900">Busco talento</span>
+                    <span class="block text-xs text-gray-600">Cuenta de reclutador</span>
+                </label>
+            </div>
+            <x-input-error :messages="$errors->get('tipo_cuenta')" class="mt-2" />
+        </fieldset>
+
+        <!-- Nombre -->
+        <div class="mt-4">
             <x-input-label for="nombre" :value="__('Nombre completo')" />
             <x-text-input id="nombre" class="block mt-1 w-full" type="text" name="nombre" :value="old('nombre')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('nombre')" class="mt-2" />
         </div>
 
+        <!-- Datos de la empresa (solo reclutadores) -->
+        <div x-show="tipo === 'reclutador'" x-cloak class="mt-4 space-y-4 rounded-lg bg-gray-50 p-4">
+            <div>
+                <x-input-label for="razon_social" value="Razón social de la empresa" />
+                <x-text-input id="razon_social" class="block mt-1 w-full" type="text" name="razon_social" :value="old('razon_social')" x-bind:required="tipo === 'reclutador'" />
+                <x-input-error :messages="$errors->get('razon_social')" class="mt-2" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <x-input-label for="ruc" value="RUC" />
+                    <x-text-input id="ruc" class="block mt-1 w-full" type="text" name="ruc" :value="old('ruc')" inputmode="numeric" maxlength="11" placeholder="20XXXXXXXXX" x-bind:required="tipo === 'reclutador'" />
+                    <x-input-error :messages="$errors->get('ruc')" class="mt-2" />
+                </div>
+                <div>
+                    <x-input-label for="ubicacion_id" value="Ubicación" />
+                    <select id="ubicacion_id" name="ubicacion_id" x-bind:required="tipo === 'reclutador'"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        <option value="">Selecciona…</option>
+                        @foreach ($ubicaciones as $ubicacion)
+                            <option value="{{ $ubicacion->id }}" @selected(old('ubicacion_id') == $ubicacion->id)>
+                                {{ $ubicacion->nombre_completo }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <x-input-error :messages="$errors->get('ubicacion_id')" class="mt-2" />
+                </div>
+            </div>
+
+            <p class="text-xs text-amber-800 bg-amber-50 rounded p-2">
+                Tu empresa quedará "pendiente" hasta que un supervisor la verifique.
+            </p>
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('Correo electrónico')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Contraseña')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -30,7 +85,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
@@ -41,11 +96,11 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                ¿Ya tienes cuenta?
             </a>
 
             <x-primary-button class="ms-4">
-                {{ __('Register') }}
+                Crear cuenta
             </x-primary-button>
         </div>
     </form>

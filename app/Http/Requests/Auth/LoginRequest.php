@@ -50,6 +50,15 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        // Un usuario desactivado por el administrador no puede iniciar sesión
+        if (! Auth::user()->activo) {
+            Auth::guard('web')->logout();
+
+            throw ValidationException::withMessages([
+                'email' => 'Tu cuenta está desactivada. Contacta al administrador.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

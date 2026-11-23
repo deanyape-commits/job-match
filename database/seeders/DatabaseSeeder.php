@@ -16,12 +16,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(RolSeeder::class);
+        $this->call([
+            RolSeeder::class,
+            UbicacionSeeder::class,
+        ]);
 
         User::factory()->create([
             'rol_id' => Rol::where('slug', Rol::ADMINISTRADOR)->value('id'),
             'nombre' => 'Administrador JobMatch',
             'email' => 'admin@jobmatch.test',
+        ]);
+
+        User::factory()->create([
+            'rol_id' => Rol::where('slug', Rol::SUPERVISOR)->value('id'),
+            'nombre' => 'Supervisor JobMatch',
+            'email' => 'supervisor@jobmatch.test',
         ]);
     }
 }
