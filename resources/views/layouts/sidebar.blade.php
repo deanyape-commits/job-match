@@ -27,10 +27,13 @@
 @endphp
 
 <aside class="flex-[1_1_240px] lg:max-w-[260px] bg-slate-900 text-slate-200 px-4 py-6 flex flex-col gap-6">
-    <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 px-2 text-white">
-        <span class="flex h-9 w-9 items-center justify-center rounded-[10px] bg-blue-700 font-display text-lg font-bold">J</span>
-        <span class="font-display text-xl font-bold">JobMatch</span>
-    </a>
+    <div class="flex items-center justify-between gap-3 px-2">
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 text-white">
+            <span class="flex h-9 w-9 items-center justify-center rounded-[10px] bg-blue-700 font-display text-lg font-bold">J</span>
+            <span class="font-display text-xl font-bold">JobMatch</span>
+        </a>
+        <x-campanita oscuro />
+    </div>
 
     @if ($usuario->tieneRol('reclutador') && $usuario->empresa)
         <div class="rounded-xl bg-slate-800 p-3 flex items-center gap-3">

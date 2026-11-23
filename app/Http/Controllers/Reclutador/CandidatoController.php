@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Reclutador;
 use App\Http\Controllers\Controller;
 use App\Models\Postulacion;
 use App\Models\Vacante;
+use App\Notifications\EstadoPostulacionCambiado;
+use App\Services\Notificador;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -68,7 +70,7 @@ class CandidatoController extends Controller
      * Si pasa a "contratado", el trigger trg_actualizar_estado_vacante cierra la vacante
      * cuando se cubren todos los puestos, y trg_historial_postulacion registra el cambio.
      */
-    public function cambiarEstado(Request $request, Postulacion $postulacion): RedirectResponse
+    public function cambiarEstado(Request $request, Postulacion $postulacion, Notificador $notificador): RedirectResponse
     {
         Gate::authorize('gestionar', $postulacion);
 
@@ -84,7 +86,13 @@ class CandidatoController extends Controller
             }
         }
 
+        $estadoAnterior = $postulacion->estado;
         $postulacion->update(['estado' => $request->estado]);
+
+        // Aviso al postulante por correo y campanita (solo si el estado cambió)
+        if ($estadoAnterior !== $request->estado) {
+            $notificador->enviar($postulacion->perfilPostulante->usuario, new EstadoPostulacionCambiado($postulacion));
+        }
 
         $nombre = $postulacion->perfilPostulante->usuario->nombre;
         $mensaje = "Estado de {$nombre}: ".Postulacion::ESTADOS_TEXTO[$request->estado].'.';

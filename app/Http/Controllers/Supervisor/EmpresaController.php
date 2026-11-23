@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Empresa;
+use App\Notifications\EmpresaRevisada;
+use App\Services\Notificador;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -37,7 +39,7 @@ class EmpresaController extends Controller
         return view('supervisor.empresas.index', compact('empresas', 'estado', 'totales'));
     }
 
-    public function verificar(Request $request, Empresa $empresa): RedirectResponse
+    public function verificar(Request $request, Empresa $empresa, Notificador $notificador): RedirectResponse
     {
         $empresa->update([
             'estado' => 'verificada',
@@ -45,10 +47,13 @@ class EmpresaController extends Controller
             'verificado_en' => now(),
         ]);
 
+        // Aviso a los reclutadores de la empresa (correo y campanita)
+        $notificador->enviar($empresa->reclutadores, new EmpresaRevisada($empresa));
+
         return back()->with('exito', "La empresa {$empresa->razon_social} fue verificada. Ya puede publicar vacantes.");
     }
 
-    public function rechazar(Request $request, Empresa $empresa): RedirectResponse
+    public function rechazar(Request $request, Empresa $empresa, Notificador $notificador): RedirectResponse
     {
         $empresa->update([
             'estado' => 'rechazada',
@@ -58,6 +63,8 @@ class EmpresaController extends Controller
 
         // Si tenía vacantes publicadas, dejan de mostrarse
         $empresa->vacantes()->where('estado', 'publicada')->update(['estado' => 'cerrada']);
+
+        $notificador->enviar($empresa->reclutadores, new EmpresaRevisada($empresa));
 
         return back()->with('exito', "La empresa {$empresa->razon_social} fue rechazada.");
     }

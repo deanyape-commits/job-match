@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\Postulante;
 use App\Http\Controllers\ProfileController;
@@ -48,6 +49,11 @@ Route::middleware('auth')->group(function () {
         Route::post('perfil/estudios', [Postulante\PerfilController::class, 'agregarEstudio'])->name('perfil.estudios.store');
         Route::delete('perfil/estudios/{estudio}', [Postulante\PerfilController::class, 'eliminarEstudio'])->name('perfil.estudios.destroy');
     });
+
+    // Notificaciones (todos los roles)
+    Route::get('notificaciones', [NotificacionController::class, 'index'])->name('notificaciones.index');
+    Route::get('notificaciones/{id}', [NotificacionController::class, 'abrir'])->name('notificaciones.abrir');
+    Route::post('notificaciones/leer-todas', [NotificacionController::class, 'leerTodas'])->name('notificaciones.leer-todas');
 
     // CV protegido (lo ven el dueño, los reclutadores a cuyas vacantes postuló, supervisores y admin)
     Route::get('cv/{perfil}', CvController::class)->name('cv.show');

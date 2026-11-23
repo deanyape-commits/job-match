@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Reclutador;
 use App\Http\Controllers\Controller;
 use App\Models\Entrevista;
 use App\Models\Postulacion;
+use App\Notifications\EntrevistaAgendada;
+use App\Services\Notificador;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +32,7 @@ class EntrevistaController extends Controller
     }
 
     /** Agendar entrevista para una postulación. */
-    public function store(Request $request, Postulacion $postulacion): RedirectResponse
+    public function store(Request $request, Postulacion $postulacion, Notificador $notificador): RedirectResponse
     {
         Gate::authorize('gestionar', $postulacion);
 
@@ -42,8 +44,8 @@ class EntrevistaController extends Controller
             'fecha_hora.after' => 'La entrevista debe ser en una fecha y hora futuras.',
         ]);
 
-        DB::transaction(function () use ($postulacion, $datos) {
-            $postulacion->entrevistas()->create($datos + [
+        $entrevista = DB::transaction(function () use ($postulacion, $datos) {
+            $entrevista = $postulacion->entrevistas()->create($datos + [
                 'enlace_reunion' => Entrevista::generarEnlaceJitsi(),
                 'estado' => 'programada',
             ]);
@@ -52,7 +54,12 @@ class EntrevistaController extends Controller
             if (in_array($postulacion->estado, ['postulado', 'en_revision'], true)) {
                 $postulacion->update(['estado' => 'entrevista']);
             }
+
+            return $entrevista;
         });
+
+        // Aviso al postulante con la fecha y el enlace de Jitsi (correo y campanita)
+        $notificador->enviar($postulacion->perfilPostulante->usuario, new EntrevistaAgendada($entrevista));
 
         return redirect()->route('reclutador.postulaciones.show', $postulacion)
             ->with('exito', 'Entrevista agendada. El enlace de videollamada ya está disponible para el postulante.');

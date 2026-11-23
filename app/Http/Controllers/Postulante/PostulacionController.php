@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Entrevista;
 use App\Models\Postulacion;
 use App\Models\Vacante;
+use App\Notifications\NuevaPostulacion;
 use App\Services\MatchingService;
+use App\Services\Notificador;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -57,7 +59,7 @@ class PostulacionController extends Controller
     }
 
     /** Postular a una vacante. El % de match se calcula y queda guardado. */
-    public function store(Request $request, Vacante $vacante, MatchingService $matching): RedirectResponse
+    public function store(Request $request, Vacante $vacante, MatchingService $matching, Notificador $notificador): RedirectResponse
     {
         $perfil = $request->user()->perfil();
 
@@ -75,12 +77,15 @@ class PostulacionController extends Controller
             return back()->with('error', 'Ya postulaste a esta vacante.');
         }
 
-        $perfil->postulaciones()->create([
+        $postulacion = $perfil->postulaciones()->create([
             'vacante_id' => $vacante->id,
             'carta_presentacion' => $request->carta_presentacion,
             'porcentaje_match' => $matching->calcular($perfil, $vacante)['porcentaje'],
             // estado = 'postulado' por defecto; el trigger trg_historial_postulacion lo registra
         ]);
+
+        // Aviso al reclutador que publicó la vacante (campanita)
+        $notificador->enviar($vacante->reclutador, new NuevaPostulacion($postulacion));
 
         return redirect()->route('postulante.postulaciones.index')
             ->with('exito', "Postulaste a \"{$vacante->titulo}\". Te avisaremos cuando la empresa revise tu perfil.");

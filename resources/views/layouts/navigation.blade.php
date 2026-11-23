@@ -29,7 +29,8 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 sm:gap-4">
+                <x-campanita />
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Menú de usuario">
@@ -87,6 +88,12 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('notificaciones.index')" :active="request()->routeIs('notificaciones.*')">
+                    Notificaciones
+                    @if ($sinLeer = Auth::user()->unreadNotifications()->count())
+                        <span class="ms-1 rounded-full bg-orange-700 px-1.5 text-xs font-bold text-white">{{ $sinLeer }}</span>
+                    @endif
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('profile.edit')">Mi cuenta</x-responsive-nav-link>
 
                 <form method="POST" action="{{ route('logout') }}">
