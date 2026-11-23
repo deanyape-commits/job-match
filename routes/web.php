@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\CvController;
+use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\Postulante;
 use App\Http\Controllers\ProfileController;
@@ -9,9 +10,8 @@ use App\Http\Controllers\Reclutador;
 use App\Http\Controllers\Supervisor;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Página de inicio pública
+Route::get('/', InicioController::class)->name('inicio');
 
 // Breeze redirige a "dashboard" después del login/registro.
 // Esta ruta envía a cada usuario al panel de su rol.
