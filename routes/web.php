@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\Postulante;
@@ -82,7 +83,10 @@ Route::middleware('auth')->group(function () {
 
     // ---------------- Administrador ----------------
     Route::middleware('rol:administrador')->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/', [PanelController::class, 'admin'])->name('inicio');
+        Route::get('/', Admin\ResumenController::class)->name('inicio');
+
+        Route::resource('usuarios', Admin\UsuarioController::class)->except(['show', 'destroy']);
+        Route::patch('usuarios/{usuario}/activo', [Admin\UsuarioController::class, 'cambiarActivo'])->name('usuarios.activo');
     });
 });
 
