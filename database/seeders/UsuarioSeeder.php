@@ -15,17 +15,17 @@ class UsuarioSeeder extends Seeder
     {
         User::factory()->administrador()->create([
             'nombre' => 'Administrador JobMatch',
-            'email' => 'admin@jobmatch.test',
+            'email' => 'admin@jobmatch.com',
         ]);
 
         User::factory()->supervisor()->create([
             'nombre' => 'Sofía Paredes Rojas',
-            'email' => 'supervisor@jobmatch.test',
+            'email' => 'supervisor@jobmatch.com',
         ]);
 
         User::factory()->supervisor()->create([
             'nombre' => 'Martín Salazar Flores',
-            'email' => 'supervisor2@jobmatch.test',
+            'email' => 'supervisor2@jobmatch.com',
         ]);
     }
 }

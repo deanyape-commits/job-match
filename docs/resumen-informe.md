@@ -184,7 +184,7 @@ SELECT * FROM sp_reporte_empresa(1, '2026-01-01', '2026-12-31');
 > En PostgreSQL, un procedimiento que **devuelve filas** se escribe como `FUNCTION … RETURNS TABLE` (un `PROCEDURE` no puede devolver un conjunto de resultados).
 
 ### Cómo demostrarlo en vivo
-1. Entra como `reclutador@jobmatch.test` → **Mis vacantes** → elige una vacante con 1 puesto → **Candidatos**.
+1. Entra como `reclutador@jobmatch.com` → **Mis vacantes** → elige una vacante con 1 puesto → **Candidatos**.
 2. Cambia a un candidato a **Contratado**. Aparece el mensaje "la vacante se cerró automáticamente" (trigger 1).
 3. Abre el perfil del candidato: en **Historial** aparecen los cambios (trigger 2).
 4. En pgAdmin o DBeaver ejecuta `SELECT * FROM historial_postulaciones ORDER BY id DESC LIMIT 5;` y `SELECT * FROM sp_reporte_empresa(1, '2026-01-01', '2026-12-31');`.

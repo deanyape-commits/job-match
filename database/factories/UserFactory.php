@@ -31,7 +31,7 @@ class UserFactory extends Factory
             // Por defecto crea postulantes. Requiere que RolSeeder se haya ejecutado.
             'rol_id' => fn () => Rol::where('slug', Rol::POSTULANTE)->value('id'),
             'nombre' => fake()->firstName().' '.fake()->lastName().' '.fake()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => fake()->unique()->userName().'@jobmatch.com',
             'telefono' => '9'.fake()->numerify('########'),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

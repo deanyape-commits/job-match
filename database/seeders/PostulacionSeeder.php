@@ -45,7 +45,7 @@ class PostulacionSeeder extends Seeder
             ->with(['habilidades', 'ubicacion', 'empresa'])
             ->get();
 
-        $demo = User::where('email', 'postulante@jobmatch.test')->first()?->perfilPostulante;
+        $demo = User::where('email', 'postulante@jobmatch.com')->first()?->perfilPostulante;
 
         DB::transaction(function () use ($matching, $perfiles, $vacantes, $demo) {
             if ($demo) {

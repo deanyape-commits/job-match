@@ -71,10 +71,10 @@ Todas usan la contraseña **`password`**.
 
 | Correo | Rol | Qué tiene |
 |---|---|---|
-| `admin@jobmatch.test` | Administrador | Acceso al resumen, usuarios y validación de empresas |
-| `supervisor@jobmatch.test` | Supervisor | Empresas pendientes por validar |
-| `reclutador@jobmatch.test` | Reclutador | Inka Fintech S.A.C., con vacantes, candidatos y entrevistas |
-| `postulante@jobmatch.test` | Postulante | Perfil completo, postulaciones y una entrevista en 2 días |
+| `admin@jobmatch.com` | Administrador | Acceso al resumen, usuarios y validación de empresas |
+| `supervisor@jobmatch.com` | Supervisor | Empresas pendientes por validar |
+| `reclutador@jobmatch.com` | Reclutador | Inka Fintech S.A.C., con vacantes, candidatos y entrevistas |
+| `postulante@jobmatch.com` | Postulante | Perfil completo, postulaciones y una entrevista en 2 días |
 
 ## Datos de prueba
 

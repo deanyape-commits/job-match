@@ -50,14 +50,14 @@ class AdminUsuariosTest extends TestCase
     {
         $this->actingAs($this->admin)->post(route('admin.usuarios.store'), [
             'nombre' => 'Nuevo Supervisor',
-            'email' => 'nuevo@jobmatch.test',
+            'email' => 'nuevo@jobmatch.com',
             'rol_id' => $this->rol(Rol::SUPERVISOR),
             'activo' => 1,
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ])->assertRedirect(route('admin.usuarios.index'));
 
-        $usuario = User::where('email', 'nuevo@jobmatch.test')->first();
+        $usuario = User::where('email', 'nuevo@jobmatch.com')->first();
         $this->assertTrue($usuario->tieneRol(Rol::SUPERVISOR));
         $this->assertTrue(Hash::check('password123', $usuario->password)); // guardada con bcrypt
     }
