@@ -131,9 +131,7 @@
                     <div>
                         <x-input-label for="notas" value="Notas para el equipo (opcional)" />
                         <textarea id="notas" name="notas" rows="2" maxlength="1000" class="mt-1 block w-full rounded-lg border-slate-300 text-sm shadow-sm focus:border-blue-600 focus:ring-blue-600">{{ old('notas') }}</textarea>
-                    </div>
-                    <p class="rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-600">Se generará un enlace de videollamada en Jitsi Meet. No hace falta instalar nada ni crear una cuenta.</p>
-                    <x-primary-button class="w-full">Confirmar entrevista</x-primary-button>
+                    </div>                    <x-primary-button class="w-full">Confirmar entrevista</x-primary-button>
                 </form>
             </section>
 
@@ -166,9 +164,7 @@
             </section>
 
             <section class="rounded-2xl border border-slate-200 bg-white p-6">
-                <h2 class="text-lg font-semibold">Historial</h2>
-                <p class="text-xs text-slate-500">Registrado por el trigger <code>trg_historial_postulacion</code>.</p>
-                <ol class="mt-3 space-y-2 text-sm">
+                <h2 class="text-lg font-semibold">Historial</h2>                <ol class="mt-3 space-y-2 text-sm">
                     @foreach ($postulacion->historial as $evento)
                         <li class="flex items-center justify-between gap-2">
                             <x-estado :valor="$evento->estado_nuevo" />

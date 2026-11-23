@@ -77,7 +77,5 @@
                 </tbody>
             </table>
         </div>
-        <div class="mt-4">{{ $postulaciones->links() }}</div>
-        <p class="mt-3 text-sm text-slate-500">El historial de estados se registra automáticamente en la base de datos (trigger <code>trg_historial_postulacion</code>).</p>
-    @endif
+        <div class="mt-4">{{ $postulaciones->links() }}</div>    @endif
 </x-app-layout>

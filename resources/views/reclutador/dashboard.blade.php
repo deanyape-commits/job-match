@@ -41,8 +41,6 @@
             </div>
         @endforeach
     </div>
-    <p class="mt-2 text-xs text-slate-500">Datos del procedimiento almacenado <code>sp_reporte_empresa(empresa, desde, hasta)</code>.</p>
-
     <div class="mt-6 flex flex-wrap gap-5">
         {{-- Gráfico de barras hecho con CSS --}}
         <section class="flex-[2_1_460px] rounded-2xl border border-slate-200 bg-white p-6">

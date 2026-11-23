@@ -45,8 +45,8 @@ class ReclutadorVacantesTest extends TestCase
         $this->actingAs($reclutador)
             ->get(route('reclutador.inicio'))
             ->assertOk()
-            ->assertSee('sp_reporte_empresa')
-            ->assertSee('Vacantes publicadas');
+            ->assertSee('Vacantes publicadas')
+            ->assertSee('Match promedio');
     }
 
     public function test_reclutador_publica_una_vacante_con_habilidades(): void

@@ -2,14 +2,6 @@
 <section x-data="{ vista: null }">
     <header>
         <h2 class="text-lg font-semibold text-slate-900">Foto de perfil</h2>
-        <p class="mt-1 text-sm text-slate-600">
-            @if ($user->tieneRol('postulante'))
-                Las empresas la verán junto a tu perfil cuando postules.
-            @else
-                Se mostrará en el menú y en las pantallas donde aparece tu nombre.
-            @endif
-            Formatos JPG, PNG o WEBP, hasta 2 MB.
-        </p>
     </header>
 
     <div class="mt-5 flex flex-wrap items-center gap-6">

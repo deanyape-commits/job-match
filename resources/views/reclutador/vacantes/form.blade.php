@@ -143,10 +143,7 @@
                      agregar(h) { this.sel.push({ id: h.id, obligatoria: true }); this.busqueda = ''; },
                      quitar(id) { this.sel = this.sel.filter(s => s.id !== id); },
                  }">
-            <div>
-                <h2 class="text-lg font-semibold">3. Habilidades para el matching</h2>
-                <p class="text-sm text-slate-600">Obligatorias pesan 70 %, deseables 20 % y la ubicación o modalidad 10 %.</p>
-            </div>
+            <h2 class="text-lg font-semibold">3. Habilidades para el matching</h2>
 
             <div class="relative">
                 <label for="buscar-habilidad" class="sr-only">Agregar habilidad</label>
