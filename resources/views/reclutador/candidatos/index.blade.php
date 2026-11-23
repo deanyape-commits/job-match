@@ -38,7 +38,7 @@
                 $idsPerfil = $perfil->habilidades->pluck('id');
             @endphp
             <article class="flex flex-wrap items-center gap-5 rounded-2xl border border-slate-200 bg-white p-5">
-                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal-100 font-bold text-teal-800">{{ $perfil->usuario->iniciales }}</span>
+                <x-avatar :usuario="$perfil->usuario" class="h-12 w-12" />
 
                 <div class="min-w-0 flex-[1_1_260px] space-y-1.5">
                     <a href="{{ route('reclutador.postulaciones.show', $postulacion) }}" class="text-lg font-semibold text-slate-900 hover:text-blue-700">{{ $perfil->usuario->nombre }}</a>

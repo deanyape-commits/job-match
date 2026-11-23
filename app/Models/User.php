@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Usuario del sistema. Se mantiene el nombre "User" porque Breeze y la
@@ -91,6 +92,12 @@ class User extends Authenticatable
     public function perfilPostulante(): HasOne
     {
         return $this->hasOne(PerfilPostulante::class, 'usuario_id');
+    }
+
+    /** URL pública de la foto de perfil, o null si no subió una. */
+    public function getAvatarUrlAttribute(): ?string
+    {
+        return $this->avatar_ruta ? Storage::disk('public')->url($this->avatar_ruta) : null;
     }
 
     /** Iniciales para el avatar: "Luis Quispe Mamani" → "LQ". */

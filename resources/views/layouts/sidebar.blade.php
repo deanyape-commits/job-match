@@ -66,8 +66,13 @@
     </nav>
 
     <div class="mt-auto border-t border-slate-800 pt-4 px-2 text-sm">
-        <p class="font-semibold text-white truncate">{{ $usuario->nombre }}</p>
-        <p class="text-slate-400 truncate">{{ $usuario->email }}</p>
+        <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 rounded-lg hover:opacity-90">
+            <x-avatar :usuario="$usuario" class="h-10 w-10" color="bg-slate-700 text-white" />
+            <span class="min-w-0">
+                <span class="block font-semibold text-white truncate">{{ $usuario->nombre }}</span>
+                <span class="block text-slate-400 truncate">{{ $usuario->email }}</span>
+            </span>
+        </a>
         <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1">
             <a href="{{ route('profile.edit') }}" class="text-slate-300 hover:text-white">Mi cuenta</a>
             <form method="POST" action="{{ route('logout') }}">

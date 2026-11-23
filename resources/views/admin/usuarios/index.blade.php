@@ -61,7 +61,7 @@
                     <tr class="border-b border-slate-100 last:border-0">
                         <td class="px-5 py-3">
                             <div class="flex items-center gap-3">
-                                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-700">{{ $usuario->iniciales }}</span>
+                                <x-avatar :usuario="$usuario" class="h-9 w-9 text-xs" color="bg-slate-100 text-slate-700" />
                                 <div class="min-w-0">
                                     <p class="font-semibold">{{ $usuario->nombre }} @if ($esYo)<span class="text-xs font-normal text-slate-500">(tú)</span>@endif</p>
                                     <p class="text-slate-600">{{ $usuario->email }}</p>

@@ -44,6 +44,7 @@ npm install
 
 cp .env.example .env          # en Windows PowerShell: copy .env.example .env
 php artisan key:generate
+php artisan storage:link      # para que se vean las fotos de perfil
 
 docker compose up -d          # levanta PostgreSQL (5432) y Mailpit (1025 / 8025)
 

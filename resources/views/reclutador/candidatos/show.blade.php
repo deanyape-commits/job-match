@@ -15,7 +15,7 @@
             {{-- Encabezado del candidato --}}
             <section class="rounded-2xl border border-slate-200 bg-white p-7">
                 <div class="flex flex-wrap items-center gap-5">
-                    <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-teal-100 text-xl font-bold text-teal-800">{{ $perfil->usuario->iniciales }}</span>
+                    <x-avatar :usuario="$perfil->usuario" class="h-16 w-16 text-xl" />
                     <div class="min-w-0 flex-1">
                         <h1 class="font-display text-2xl font-bold">{{ $perfil->usuario->nombre }}</h1>
                         <p class="text-slate-700">{{ $perfil->titular ?? 'Sin titular' }}</p>
