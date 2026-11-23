@@ -136,7 +136,6 @@
 <footer class="border-t border-slate-200 bg-white">
     <div class="mx-auto flex max-w-6xl flex-wrap justify-between gap-3 px-6 py-7 text-sm text-slate-600">
         <span>© {{ date('Y') }} JobMatch · Proyecto final Tecsup</span>
-        <span>Hecho con Laravel, Blade y PostgreSQL</span>
     </div>
 </footer>
 </body>
