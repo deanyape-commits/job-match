@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -36,7 +37,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Por ahora todo registro público crea un postulante.
+        // En la fase 4 se agrega la opción "Busco talento" (reclutador).
         $user = User::create([
+            'rol_id' => Rol::where('slug', Rol::POSTULANTE)->value('id'),
             'nombre' => $request->nombre,
             'email' => $request->email,
             'password' => Hash::make($request->password),

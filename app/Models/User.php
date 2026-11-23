@@ -4,9 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Usuario del sistema. Se mantiene el nombre "User" porque Breeze y la
+ * autenticación de Laravel dependen de él, pero su tabla es "usuarios".
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -23,8 +30,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'rol_id',
+        'empresa_id',
         'nombre',
         'email',
+        'telefono',
+        'avatar_ruta',
+        'activo',
         'password',
     ];
 
@@ -41,6 +53,8 @@ class User extends Authenticatable
     /**
      * Get the attributes that should be cast.
      *
+     * "password" => "hashed" aplica bcrypt automáticamente al guardar.
+     *
      * @return array<string, string>
      */
     protected function casts(): array
@@ -48,6 +62,43 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'activo' => 'boolean',
         ];
+    }
+
+    /** N:1 — El usuario tiene un rol. */
+    public function rol(): BelongsTo
+    {
+        return $this->belongsTo(Rol::class, 'rol_id');
+    }
+
+    /** N:1 — Empresa del reclutador (null para otros roles). */
+    public function empresa(): BelongsTo
+    {
+        return $this->belongsTo(Empresa::class, 'empresa_id');
+    }
+
+    /** 1:1 — Perfil profesional (solo postulantes). */
+    public function perfilPostulante(): HasOne
+    {
+        return $this->hasOne(PerfilPostulante::class, 'usuario_id');
+    }
+
+    /** 1:N — Vacantes creadas por el reclutador. */
+    public function vacantesCreadas(): HasMany
+    {
+        return $this->hasMany(Vacante::class, 'reclutador_id');
+    }
+
+    /** 1:N — Empresas verificadas por el supervisor. */
+    public function empresasVerificadas(): HasMany
+    {
+        return $this->hasMany(Empresa::class, 'verificado_por');
+    }
+
+    /** ¿El usuario tiene el rol indicado? Ej.: $user->tieneRol(Rol::RECLUTADOR) */
+    public function tieneRol(string ...$slugs): bool
+    {
+        return in_array($this->rol?->slug, $slugs, true);
     }
 }
