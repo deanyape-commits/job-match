@@ -65,7 +65,7 @@ class PostulanteSeeder extends Seeder
     {
         $usuario = User::factory()->create([
             'nombre' => 'Luis Quispe Mamani',
-            'email' => 'postulante@jobmatch.com',
+            'email' => 'postulante@ludan.com',
         ]);
 
         $perfil = PerfilPostulante::factory()->create([

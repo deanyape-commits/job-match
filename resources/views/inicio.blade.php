@@ -10,8 +10,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>JobMatch · Empleos del sector tecnológico en el Perú</title>
-    <meta name="description" content="Encuentra empleos de tecnología que coinciden con tus habilidades. JobMatch calcula tu porcentaje de compatibilidad con cada vacante.">
+    <title>Ludan · Empleos del sector tecnológico en el Perú</title>
+    <meta name="description" content="Encuentra empleos de tecnología que coinciden con tus habilidades. Ludan calcula tu porcentaje de compatibilidad con cada vacante.">
     <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
     <script>document.documentElement.classList.add('js')</script>
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -22,7 +22,7 @@
 
 <header class="border-b border-[#EDE6E1] bg-white">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-3.5">
-        <a href="{{ route('inicio') }}" aria-label="JobMatch, inicio"><x-application-logo /></a>
+        <a href="{{ route('inicio') }}" aria-label="Ludan, inicio"><x-application-logo /></a>
         <nav aria-label="Principal" class="flex flex-wrap items-center gap-6 text-[15px] font-medium">
             <a href="{{ route('postulante.vacantes.index') }}" class="text-slate-700 transition hover:text-coral-700">Buscar empleos</a>
             @auth
@@ -46,7 +46,7 @@
                     Encuentra el trabajo que coincide con <span class="text-coral-400">tus habilidades</span>
                 </h1>
                 <p class="max-w-xl text-lg leading-relaxed text-slate-300" data-revelar data-revelar-retraso="160">
-                    JobMatch compara tu perfil con cada vacante y te muestra tu porcentaje de compatibilidad antes de postular.
+                    Ludan compara tu perfil con cada vacante y te muestra tu porcentaje de compatibilidad antes de postular.
                 </p>
 
                 {{-- Texto rotativo con las áreas que más contratan --}}
@@ -116,7 +116,7 @@
     {{-- ================= Carrusel de empresas ================= --}}
     @if ($empresas->isNotEmpty())
         <section aria-label="Empresas verificadas" class="mx-auto max-w-6xl overflow-hidden px-6 pt-14" data-revelar>
-            <p class="mb-4 text-center text-sm font-semibold uppercase tracking-wider text-slate-500">Empresas verificadas que publican en JobMatch</p>
+            <p class="mb-4 text-center text-sm font-semibold uppercase tracking-wider text-slate-500">Empresas verificadas que publican en Ludan</p>
             <div class="relative [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
                 <div class="carrusel-pista flex w-max animate-carrusel gap-4">
                     @foreach ([false, true] as $duplicado)
@@ -202,7 +202,7 @@
 
 <footer class="border-t border-[#EDE6E1] bg-white">
     <div class="mx-auto max-w-6xl px-6 py-7 text-sm text-slate-600">
-        <span>© {{ date('Y') }} JobMatch · Proyecto final Tecsup</span>
+        <span>© {{ date('Y') }} Ludan · Proyecto final Tecsup</span>
     </div>
 </footer>
 </body>

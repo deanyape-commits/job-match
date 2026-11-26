@@ -33,7 +33,7 @@ class EmpresaSeeder extends Seeder
         ]);
         User::factory()->reclutador($demo)->create([
             'nombre' => 'Carla Ramos Díaz',
-            'email' => 'reclutador@jobmatch.com',
+            'email' => 'reclutador@ludan.com',
         ]);
 
         $crear = function (int $cantidad, string $estado) use ($supervisores) {

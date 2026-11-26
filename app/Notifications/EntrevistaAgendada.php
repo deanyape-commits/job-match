@@ -29,7 +29,7 @@ class EntrevistaAgendada extends Notification
             ->line("**Duración:** {$this->entrevista->duracion_minutos} minutos")
             ->line('La entrevista es por videollamada en Jitsi Meet: no necesitas instalar nada ni crear una cuenta.')
             ->action('Unirme a la videollamada', $this->entrevista->enlace_reunion)
-            ->salutation('¡Mucho éxito! El equipo de JobMatch');
+            ->salutation('¡Mucho éxito! El equipo de Ludan');
     }
 
     public function toArray(object $notifiable): array

@@ -1,6 +1,6 @@
-# JobMatch
+# Ludan
 
-Plataforma web de búsqueda de empleo del sector tecnológico en el Perú. JobMatch compara el perfil de cada postulante con las habilidades que pide cada vacante y muestra un **porcentaje de compatibilidad (match)**, tanto al postulante como a la empresa.
+Plataforma web de búsqueda de empleo del sector tecnológico en el Perú. Ludan compara el perfil de cada postulante con las habilidades que pide cada vacante y muestra un **porcentaje de compatibilidad (match)**, tanto al postulante como a la empresa.
 
 Proyecto final · Desarrollo de Aplicaciones Web y Base de Datos · Tecsup
 
@@ -64,7 +64,7 @@ npm run dev          # recompila los estilos al guardar cambios (opcional)
 - **Aplicación:** http://localhost:8000
 - **Bandeja de correos de prueba (Mailpit):** http://localhost:8025
 
-Antes de trabajar, abre Docker Desktop. Los contenedores `jobmatch-db` y `jobmatch-mail` se inician solos.
+Antes de trabajar, abre Docker Desktop. Los contenedores `ludan-db` y `ludan-mail` se inician solos.
 
 ## Cuentas de prueba
 
@@ -72,10 +72,10 @@ Todas usan la contraseña **`password`**.
 
 | Correo | Rol | Qué tiene |
 |---|---|---|
-| `admin@jobmatch.com` | Administrador | Acceso al resumen, usuarios y validación de empresas |
-| `supervisor@jobmatch.com` | Supervisor | Empresas pendientes por validar |
-| `reclutador@jobmatch.com` | Reclutador | Inka Fintech S.A.C., con vacantes, candidatos y entrevistas |
-| `postulante@jobmatch.com` | Postulante | Perfil completo, postulaciones y una entrevista en 2 días |
+| `admin@ludan.com` | Administrador | Acceso al resumen, usuarios y validación de empresas |
+| `supervisor@ludan.com` | Supervisor | Empresas pendientes por validar |
+| `reclutador@ludan.com` | Reclutador | Inka Fintech S.A.C., con vacantes, candidatos y entrevistas |
+| `postulante@ludan.com` | Postulante | Perfil completo, postulaciones y una entrevista en 2 días |
 
 ## Datos de prueba
 
@@ -94,7 +94,7 @@ Todas usan la contraseña **`password`**.
 php artisan test
 ```
 
-Los tests usan una base de datos separada, `jobmatch_test`, que Docker crea automáticamente (`docker/postgres/init.sql`), así que no tocan los datos de desarrollo. Hay más de 100 tests: triggers, procedimiento almacenado, matching, permisos por rol y cada pantalla.
+Los tests usan una base de datos separada, `ludan_test`, que Docker crea automáticamente (`docker/postgres/init.sql`), así que no tocan los datos de desarrollo. Hay más de 100 tests: triggers, procedimiento almacenado, matching, permisos por rol y cada pantalla.
 
 ## Estructura principal
 

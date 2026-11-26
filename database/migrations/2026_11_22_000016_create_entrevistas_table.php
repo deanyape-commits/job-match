@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('postulacion_id')->constrained('postulaciones')->cascadeOnDelete();
             $table->timestamp('fecha_hora');
             $table->unsignedSmallInteger('duracion_minutos')->default(30);
-            $table->string('enlace_reunion'); // https://meet.jit.si/jobmatch-xxxx
+            $table->string('enlace_reunion'); // https://meet.jit.si/ludan-xxxx
             $table->enum('estado', ['programada', 'realizada', 'cancelada'])->default('programada');
             $table->text('notas')->nullable();
             $table->timestamps();

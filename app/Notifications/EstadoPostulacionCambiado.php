@@ -35,7 +35,7 @@ class EstadoPostulacionCambiado extends Notification
             ->line("Tu postulación a **{$vacante->titulo}** en {$vacante->empresa->razon_social} cambió de estado.")
             ->line(self::MENSAJES[$this->postulacion->estado] ?? '')
             ->action('Ver mi postulación', route('postulante.postulaciones.show', $this->postulacion))
-            ->salutation('El equipo de JobMatch');
+            ->salutation('El equipo de Ludan');
     }
 
     public function toArray(object $notifiable): array

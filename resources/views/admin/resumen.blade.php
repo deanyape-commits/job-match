@@ -7,7 +7,7 @@
 
     <x-slot name="header">
         <h1 class="font-display text-3xl font-bold">Resumen de la plataforma</h1>
-        <p class="mt-1 text-slate-600">Cifras globales de JobMatch.</p>
+        <p class="mt-1 text-slate-600">Cifras globales de Ludan.</p>
     </x-slot>
 
     <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Usuarios</h2>

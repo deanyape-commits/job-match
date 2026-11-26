@@ -1,7 +1,7 @@
 <?php
 
 /*
-| Mensajes de validación en español (las reglas que usa JobMatch).
+| Mensajes de validación en español (las reglas que usa Ludan).
 */
 return [
     'accepted' => 'Debes aceptar :attribute.',

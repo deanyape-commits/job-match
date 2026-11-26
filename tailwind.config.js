@@ -12,7 +12,7 @@ export default {
 
     theme: {
         extend: {
-            // Tipografías de JobMatch
+            // Tipografías de Ludan
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 display: ['"Space Grotesk"', ...defaultTheme.fontFamily.sans],

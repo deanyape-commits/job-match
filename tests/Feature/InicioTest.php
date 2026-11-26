@@ -20,7 +20,7 @@ class InicioTest extends TestCase
             ->assertOk()
             ->assertSee('Encuentra el trabajo que coincide con')
             ->assertSee('img/logo-negro.png')
-            ->assertSee('Empresas verificadas que publican en JobMatch')
+            ->assertSee('Empresas verificadas que publican en Ludan')
             ->assertSee('Vacante Reciente Visible')
             ->assertDontSee('Borrador Oculto')
             ->assertSee('Crear cuenta');

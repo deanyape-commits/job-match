@@ -78,7 +78,7 @@ class NotificacionesTest extends TestCase
         Notification::assertSentTo($postulante, EntrevistaAgendada::class, function ($n) use ($postulante) {
             $correo = $n->toMail($postulante);
 
-            return str_starts_with($correo->actionUrl, 'https://meet.jit.si/jobmatch-');
+            return str_starts_with($correo->actionUrl, 'https://meet.jit.si/ludan-');
         });
     }
 

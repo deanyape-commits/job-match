@@ -1,4 +1,4 @@
-# JobMatch: modelo de datos (v1)
+# Ludan: modelo de datos (v1)
 
 Basado en `guia-inicial/guia-bd.docx`. Motor: **PostgreSQL 15**. Framework: **Laravel 12 + Eloquent**.
 
@@ -178,7 +178,7 @@ Todas las tablas incluyen `created_at` y `updated_at` (`timestamps()`), salvo la
 
 **`historial_postulaciones`** (la llena un trigger): `id`, `postulacion_id` FK, `estado_anterior` nullable, `estado_nuevo`, `cambiado_en`.
 
-**`entrevistas`**: `id`, `postulacion_id` FK, `fecha_hora`, `duracion_minutos` default 30, `enlace_reunion` (enlace Jitsi generado: `https://meet.jit.si/jobmatch-{uuid}`), `estado` enum(`programada`,`realizada`,`cancelada`), `notas` nullable.
+**`entrevistas`**: `id`, `postulacion_id` FK, `fecha_hora`, `duracion_minutos` default 30, `enlace_reunion` (enlace Jitsi generado: `https://meet.jit.si/ludan-{uuid}`), `estado` enum(`programada`,`realizada`,`cancelada`), `notas` nullable.
 
 ### 3.6 Tablas propias de Laravel
 `notifications`, `password_reset_tokens`, `sessions`, `cache`, `jobs`. Las crea el framework y se dejan con su nombre original.

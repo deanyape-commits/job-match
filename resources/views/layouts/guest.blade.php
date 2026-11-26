@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'JobMatch') }}</title>
+        <title>{{ config('app.name', 'Ludan') }}</title>
         <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
         <script>document.documentElement.classList.add('js')</script>
 
@@ -23,7 +23,7 @@
                 <img src="{{ asset('img/reunion-equipo.jpg') }}" alt="" class="absolute inset-0 h-full w-full object-cover">
                 <div class="absolute inset-0 bg-carbon-900/65"></div>
                 <div class="relative flex h-full flex-col justify-between gap-10 p-8 sm:p-14">
-                    <a href="{{ route('inicio') }}" aria-label="JobMatch, ir al inicio">
+                    <a href="{{ route('inicio') }}" aria-label="Ludan, ir al inicio">
                         <x-application-logo oscuro />
                     </a>
                     <div class="max-w-md space-y-4" data-revelar>
@@ -31,7 +31,7 @@
                         <h1 class="font-display text-3xl font-bold leading-tight sm:text-4xl">Tu próximo empleo TI empieza con un buen match.</h1>
                         <p class="text-lg leading-relaxed text-slate-200">Vacantes de empresas verificadas, con tu porcentaje de compatibilidad antes de postular.</p>
                     </div>
-                    <span class="text-sm text-slate-300">© {{ date('Y') }} JobMatch</span>
+                    <span class="text-sm text-slate-300">© {{ date('Y') }} Ludan</span>
                 </div>
             </aside>
 

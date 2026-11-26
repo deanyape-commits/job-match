@@ -33,6 +33,6 @@ class Entrevista extends Model
     /** Genera un enlace único de videollamada en Jitsi Meet (no requiere API). */
     public static function generarEnlaceJitsi(): string
     {
-        return 'https://meet.jit.si/jobmatch-'.Str::lower(Str::random(12));
+        return 'https://meet.jit.si/ludan-'.Str::lower(Str::random(12));
     }
 }

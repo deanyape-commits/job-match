@@ -21,17 +21,17 @@ class EmpresaRevisada extends Notification
         $verificada = $this->empresa->estaVerificada();
 
         $correo = (new MailMessage)
-            ->subject($verificada ? 'Tu empresa fue verificada en JobMatch' : 'Tu empresa no fue aprobada en JobMatch')
+            ->subject($verificada ? 'Tu empresa fue verificada en Ludan' : 'Tu empresa no fue aprobada en Ludan')
             ->greeting("Hola, {$notifiable->nombre}");
 
         return $verificada
             ? $correo->line("¡Buenas noticias! Verificamos los datos de **{$this->empresa->razon_social}**.")
                 ->line('Desde ahora puedes publicar vacantes y recibir candidatos.')
                 ->action('Publicar mi primera vacante', route('reclutador.vacantes.create'))
-                ->salutation('El equipo de JobMatch')
+                ->salutation('El equipo de Ludan')
             : $correo->line("No pudimos verificar los datos de **{$this->empresa->razon_social}** (RUC {$this->empresa->ruc}).")
                 ->line('Si crees que se trata de un error, responde a este correo con la documentación de tu empresa.')
-                ->salutation('El equipo de JobMatch');
+                ->salutation('El equipo de Ludan');
     }
 
     public function toArray(object $notifiable): array

@@ -1,5 +1,5 @@
 /**
- * Efectos dinámicos de JobMatch.
+ * Efectos dinámicos de Ludan.
  *
  * - Animaciones: aparición al hacer scroll, contadores, círculo de match y texto rotativo.
  * - Funciones en vivo (Alpine.js): búsqueda con sugerencias, campanita que se actualiza

@@ -1,4 +1,4 @@
-# JobMatch: resumen técnico para el informe y la exposición
+# Ludan: resumen técnico para el informe y la exposición
 
 Este documento sigue la estructura de `guia-inicial/guia-bd.docx`. Cada sección indica dónde está el código en el proyecto, para mostrarlo durante la exposición.
 
@@ -10,7 +10,7 @@ En el Perú, quienes buscan empleo en tecnología (egresados técnicos, practica
 
 ## 2. Solución propuesta
 
-**JobMatch** es una plataforma web especializada en empleos del sector tecnológico que:
+**Ludan** es una plataforma web especializada en empleos del sector tecnológico que:
 
 - **Calcula un porcentaje de compatibilidad (match)** entre el perfil del postulante y las habilidades que pide cada vacante, antes de postular.
 - **Ordena a los candidatos por compatibilidad** para que el reclutador revise primero a los más adecuados.
@@ -36,11 +36,11 @@ El acceso se controla con el middleware `rol` (`app/Http/Middleware/VerificarRol
 
 **15 tablas propias:** `roles`, `usuarios`, `empresas`, `ubicaciones`, `categorias`, `habilidades`, `perfiles_postulante`, `experiencias`, `estudios`, `perfil_habilidad`, `vacantes`, `vacante_habilidad`, `vacantes_guardadas`, `postulaciones`, `historial_postulaciones` y `entrevistas`.
 
-> **Captura de la Vista Diseñador (MER):** abre pgAdmin o DBeaver y conéctate a `localhost:5432`, base `jobmatch`, usuario `jobmatch`, contraseña `jobmatch_secret`. En pgAdmin, clic derecho sobre la base → **ERD For Database**. En DBeaver, abre el esquema `public` → pestaña **ER Diagram**.
+> **Captura de la Vista Diseñador (MER):** abre pgAdmin o DBeaver y conéctate a `localhost:5432`, base `ludan`, usuario `ludan`, contraseña `ludan_secret`. En pgAdmin, clic derecho sobre la base → **ERD For Database**. En DBeaver, abre el esquema `public` → pestaña **ER Diagram**.
 
 ### Diccionario de relaciones (resumen)
 
-| Tipo | Ejemplo en JobMatch | Cómo se implementa |
+| Tipo | Ejemplo en Ludan | Cómo se implementa |
 |---|---|---|
 | **Uno a uno** | Un usuario tiene **un** perfil de postulante | `perfiles_postulante.usuario_id` con restricción **UNIQUE** |
 | **Uno a muchos** | Una empresa publica **muchas** vacantes | `vacantes.empresa_id` (FK) |
@@ -184,7 +184,7 @@ SELECT * FROM sp_reporte_empresa(1, '2026-01-01', '2026-12-31');
 > En PostgreSQL, un procedimiento que **devuelve filas** se escribe como `FUNCTION … RETURNS TABLE` (un `PROCEDURE` no puede devolver un conjunto de resultados).
 
 ### Cómo demostrarlo en vivo
-1. Entra como `reclutador@jobmatch.com` → **Mis vacantes** → elige una vacante con 1 puesto → **Candidatos**.
+1. Entra como `reclutador@ludan.com` → **Mis vacantes** → elige una vacante con 1 puesto → **Candidatos**.
 2. Cambia a un candidato a **Contratado**. Aparece el mensaje "la vacante se cerró automáticamente" (trigger 1).
 3. Abre el perfil del candidato: en **Historial** aparecen los cambios (trigger 2).
 4. En pgAdmin o DBeaver ejecuta `SELECT * FROM historial_postulaciones ORDER BY id DESC LIMIT 5;` y `SELECT * FROM sp_reporte_empresa(1, '2026-01-01', '2026-12-31');`.
@@ -201,7 +201,7 @@ El diagrama original usaba Java/Spring Boot. Para Laravel queda así:
 | Servidor de aplicación | Nginx (proxy inverso, TLS) + **PHP-FPM 8.x + Laravel 12** |
 | Servidor de base de datos | **PostgreSQL 15** (tablas, triggers, procedimiento almacenado) |
 | Servicio externo de correo | **SMTP** (en desarrollo, Mailpit en Docker) |
-| Servicio externo de videollamada | **Jitsi Meet** (enlaces `https://meet.jit.si/jobmatch-…`) |
+| Servicio externo de videollamada | **Jitsi Meet** (enlaces `https://meet.jit.si/ludan-…`) |
 
 Los módulos del diagrama se corresponden con los controladores de Laravel: gestión de usuarios (`Admin/`), perfiles y vacantes (`Postulante/PerfilController`, `Reclutador/VacanteController`), postulaciones, matching (`MatchingService`), entrevistas virtuales (`Reclutador/EntrevistaController`) y notificaciones (`app/Notifications`).
 

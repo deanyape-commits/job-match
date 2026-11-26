@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ isset($titulo) ? $titulo.' · ' : '' }}{{ config('app.name', 'JobMatch') }}</title>
+        <title>{{ isset($titulo) ? $titulo.' · ' : '' }}{{ config('app.name', 'Ludan') }}</title>
         <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
         {{-- Marca que el JavaScript está activo antes de dibujar (evita parpadeos en las animaciones) --}}
         <script>document.documentElement.classList.add('js')</script>

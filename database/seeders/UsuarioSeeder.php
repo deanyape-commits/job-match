@@ -14,18 +14,18 @@ class UsuarioSeeder extends Seeder
     public function run(): void
     {
         User::factory()->administrador()->create([
-            'nombre' => 'Administrador JobMatch',
-            'email' => 'admin@jobmatch.com',
+            'nombre' => 'Administrador Ludan',
+            'email' => 'admin@ludan.com',
         ]);
 
         User::factory()->supervisor()->create([
             'nombre' => 'Sofía Paredes Rojas',
-            'email' => 'supervisor@jobmatch.com',
+            'email' => 'supervisor@ludan.com',
         ]);
 
         User::factory()->supervisor()->create([
             'nombre' => 'Martín Salazar Flores',
-            'email' => 'supervisor2@jobmatch.com',
+            'email' => 'supervisor2@ludan.com',
         ]);
     }
 }

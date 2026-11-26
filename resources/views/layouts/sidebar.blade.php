@@ -28,7 +28,7 @@
 
 <aside class="flex-[1_1_240px] lg:max-w-[260px] bg-carbon-900 text-slate-200 px-4 py-6 flex flex-col gap-6">
     <div class="flex items-center justify-between gap-3 px-2">
-        <a href="{{ route('dashboard') }}" aria-label="JobMatch, ir a mi panel">
+        <a href="{{ route('dashboard') }}" aria-label="Ludan, ir a mi panel">
             <x-application-logo oscuro />
         </a>
         <x-campanita oscuro />

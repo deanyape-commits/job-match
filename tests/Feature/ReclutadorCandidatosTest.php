@@ -119,7 +119,7 @@ class ReclutadorCandidatosTest extends TestCase
             ->assertRedirect(route('reclutador.postulaciones.show', $postulacion));
 
         $entrevista = Entrevista::first();
-        $this->assertStringStartsWith('https://meet.jit.si/jobmatch-', $entrevista->enlace_reunion);
+        $this->assertStringStartsWith('https://meet.jit.si/ludan-', $entrevista->enlace_reunion);
         $this->assertSame('programada', $entrevista->estado);
         $this->assertSame('entrevista', $postulacion->fresh()->estado);
 

@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Agrega a la tabla usuarios (creada por Breeze) las columnas propias de JobMatch.
+ * Agrega a la tabla usuarios (creada por Breeze) las columnas propias de Ludan.
  * Va después de roles y empresas porque tiene claves foráneas hacia ellas.
  */
 return new class extends Migration

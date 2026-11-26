@@ -10,7 +10,7 @@
 
         <!-- Tipo de cuenta -->
         <fieldset>
-            <legend class="block font-medium text-sm text-gray-700">¿Cómo quieres usar JobMatch?</legend>
+            <legend class="block font-medium text-sm text-gray-700">¿Cómo quieres usar Ludan?</legend>
             <div class="mt-2 grid grid-cols-2 gap-3">
                 <label class="cursor-pointer rounded-lg border-2 p-3 transition"
                        :class="tipo === 'postulante' ? 'border-coral-600 bg-coral-50' : 'border-gray-200'">

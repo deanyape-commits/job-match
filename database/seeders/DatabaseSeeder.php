@@ -16,7 +16,7 @@ use Illuminate\Database\Seeder;
  *   6. PostulacionSeeder  → ~3 700 postulaciones (match real) y entrevistas
  *
  * Cuentas de prueba (contraseña "password"):
- *   admin@jobmatch.com · supervisor@jobmatch.com · reclutador@jobmatch.com · postulante@jobmatch.com
+ *   admin@ludan.com · supervisor@ludan.com · reclutador@ludan.com · postulante@ludan.com
  *
  * Uso: php artisan migrate:fresh --seed   (tarda alrededor de 1 minuto)
  */
